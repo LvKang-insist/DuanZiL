@@ -36,5 +36,9 @@ interface HomeApi {
     @POST("home/pic")
     suspend fun homePic(@Body page: Int): ResponseData<AttentionListBean>
 
+    /** 获取主页的纯文列表数据 */
+    @POST("home/text")
+    suspend fun homeText(@Body page: Int): ResponseData<AttentionListBean>
+
 
 }

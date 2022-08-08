@@ -46,13 +46,20 @@ class HomeTabViewModel : ViewModel() {
     }
 
 
+    private fun jokesLike(id:String,status:Boolean){
+        viewModelScope.launch {
+
+        }
+    }
+
     private fun refresh(page: Int) {
         viewModelScope.launch {
             launchHttp {
                 when (type) {
                     0 -> homeApi.homeRecommend(page)
-                    1 -> homeApi.homePic(page)
-                    2 -> homeApi.homeLatest(page)
+                    1 -> homeApi.homeLatest(page)
+                    2 -> homeApi.homePic(page)
+                    3 -> homeApi.homeText(page)
                     else -> homeApi.homeLatest(page)
                 }
             }.toData {

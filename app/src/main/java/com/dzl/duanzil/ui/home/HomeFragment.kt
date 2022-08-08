@@ -26,7 +26,7 @@ class HomeFragment : BaseBindingFragment<FragHomeBinding>() {
 
     override fun getTitleBar(): View = binding.indicator
 
-    private val tabList = arrayListOf("推荐", "趣图", "最新")
+    private val tabList = arrayListOf("推荐", "最新", "趣图", "纯文")
 
 
     override fun initView() {
@@ -57,6 +57,8 @@ class HomeFragment : BaseBindingFragment<FragHomeBinding>() {
                     return when (position) {
                         0 -> fragment
                         1 -> fragment
+                        2 -> fragment
+                        3 -> fragment
                         else -> Fragment()
                     }
                 }

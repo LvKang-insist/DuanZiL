@@ -3,6 +3,13 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/android/project/DuanZiL/app/src/main/res/drawable/like_off_ic.xml" value="0.15" />
+        <entry key="..\:/android/project/DuanZiL/app/src/main/res/drawable/like_on_ic.xml" value="0.15" />
+        <entry key="..\:/android/project/DuanZiL/app/src/main/res/drawable/like_selector.xml" value="0.15" />
+        <entry key="..\:/android/project/DuanZiL/app/src/main/res/drawable/main_home_off_ic.xml" value="0.15" />
+        <entry key="..\:/android/project/DuanZiL/app/src/main/res/layout/home_tab_item_img.xml" value="0.38177083333333334" />
+        <entry key="..\:/android/project/DuanZiL/app/src/main/res/layout/home_tab_item_text.xml" value="0.16111111111111112" />
+        <entry key="..\:/android/project/DuanZiL/app/src/main/res/layout/home_tab_item_video.xml" value="0.38177083333333334" />
         <entry key="app/src/main/res/drawable/ic__4gf_playcircle.xml" value="0.205" />
         <entry key="app/src/main/res/drawable/main_home_off_ic.xml" value="0.222" />
         <entry key="app/src/main/res/drawable/main_home_on_ic.xml" value="0.222" />
@@ -34,7 +41,7 @@
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="11" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

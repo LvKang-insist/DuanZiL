@@ -1,8 +1,12 @@
 package com.dzl.duanzil.ui.home
 
+import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import com.chad.library.adapter.base.BaseQuickAdapter
+import com.chad.library.adapter.base.listener.OnItemChildClickListener
+import com.chad.library.adapter.base.listener.OnItemClickListener
 import com.dzl.duanzil.R
 import com.dzl.duanzil.core.base.BaseBindingFragment
 import com.dzl.duanzil.core.other.AdapterHelper
@@ -12,6 +16,7 @@ import com.dzl.duanzil.state.ListStatus
 import com.dzl.duanzil.state.home.HomeTabViewAction
 import com.dzl.duanzil.ui.home.adapter.HomeTabAdapter
 import com.dzl.duanzil.viewmodel.HomeTabViewModel
+import com.hjq.toast.ToastUtils
 
 /**
  * @name HomeTabFragment
@@ -54,6 +59,20 @@ class HomeTabFragment : BaseBindingFragment<FragHomeTabBinding>() {
         }
     }
 
+
+    override fun listener() {
+        adapter.addChildClickViewIds(R.id.like,R.id.like_count)
+        adapter.setOnItemChildClickListener { adapter, view, position ->
+            when(view.id){
+                 R.id.like,R.id.like_count ->{
+                     ToastUtils.show("点赞")
+                 }
+            }
+        }
+        adapter.setOnItemClickListener { adapter, view, position ->
+            ToastUtils.show("跳转")
+        }
+    }
 
     override fun initData() {
         viewModel.state.observe(this) {

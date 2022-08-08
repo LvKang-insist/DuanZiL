@@ -7,6 +7,7 @@ import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.dzl.duanzil.R
 import com.dzl.duanzil.bean.AttentionListBean
 import com.dzl.duanzil.databinding.HomeTabItemImgBinding
+import com.dzl.duanzil.databinding.HomeTabItemTextBinding
 import com.dzl.duanzil.databinding.HomeTabItemVideoBinding
 import com.dzl.duanzil.utils.AESUtils
 import com.dzl.duanzil.utils.GlideAppUtils
@@ -44,7 +45,13 @@ private class TextItemProvider : BaseItemProvider<AttentionListBean.AttentionLis
         get() = R.layout.home_tab_item_text
 
     override fun convert(helper: BaseViewHolder, item: AttentionListBean.AttentionListBeanItem) {
-
+        DataBindingUtil.bind<HomeTabItemTextBinding>(helper.itemView)?.let {
+            it.content.text = item.joke.content
+            it.likeCount.text = item.info.likeNum.toString()
+            GlideAppUtils.loadImageCircleCrop(context, item.user.avatar, it.avatar)
+            it.name.text = item.user.nickName
+            it.like.isSelected = item.info.isLike
+        }
     }
 
 }
@@ -66,6 +73,7 @@ private class ImgItemProvider : BaseItemProvider<AttentionListBean.AttentionList
             it.likeCount.text = item.info.likeNum.toString()
             GlideAppUtils.loadImageCircleCrop(context, item.user.avatar, it.avatar)
             it.name.text = item.user.nickName
+            it.like.isSelected = item.info.isLike
         }
     }
 
@@ -90,6 +98,7 @@ private class VideoItemProvider : BaseItemProvider<AttentionListBean.AttentionLi
             it.likeCount.text = item.info.likeNum.toString()
             GlideAppUtils.loadImageCircleCrop(context, item.user.avatar, it.avatar)
             it.name.text = item.user.nickName
+            it.like.isSelected = item.info.isLike
         }
     }
 

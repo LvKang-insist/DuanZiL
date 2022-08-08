@@ -40,7 +40,6 @@
             android:layout_marginTop="@dimen/dp_4"
             android:layout_marginEnd="@dimen/dp_8"
             android:maxLines="2"
-            android:text="12"
             app:layout_constraintLeft_toLeftOf="@id/image"
             app:layout_constraintRight_toRightOf="@id/image"
             app:layout_constraintTop_toBottomOf="@id/image" />
@@ -81,13 +80,14 @@
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/like"
-            android:layout_width="@dimen/dp_12"
-            android:layout_height="@dimen/dp_12"
+            android:layout_width="@dimen/dp_16"
+            android:layout_height="@dimen/dp_16"
+            android:src="@drawable/like_selector"
             android:layout_marginEnd="@dimen/dp_4"
-            android:src="@color/skin_primary"
             app:layout_constraintBottom_toBottomOf="@id/like_count"
             app:layout_constraintRight_toLeftOf="@id/like_count"
             app:layout_constraintTop_toTopOf="@id/like_count" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

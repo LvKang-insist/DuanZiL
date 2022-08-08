@@ -43,6 +43,7 @@ abstract class BaseFragment : Fragment() {
             isLazyLoad = true
             initView()
             initData()
+            listener()
         }
     }
 
@@ -54,5 +55,8 @@ abstract class BaseFragment : Fragment() {
 
     /** 初始化数据 */
     open fun initData() = Unit
+
+    /** 处理事件 */
+    open fun listener() = Unit
 
 }
