@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="transparent">#00000000</color>
+
+
+    <!--    首页 tab 未选中-->
+    <color name="main_nav_off">#FFa4a4a4</color>
+
+    <!--文字相关-->
+    <color name="textColor">#FF111A34</color>
+    <color name="textWhiteColor">#FFFFFFFF</color>
+    <color name="textMinorColor">#FF999999</color>
+
+    <color name="skin_primary">#FFFF9800</color>
+    <color name="skin_background">#FFFFFFFF</color>
+    <color name="skin_page_background">#FFF4F4F4</color>
+
+
+    <color name="divider">#FFE6E6E6</color>
+
+</resources>

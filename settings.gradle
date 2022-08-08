@@ -1,0 +1,18 @@
+pluginManagement {
+    // 导入通用的 Maven 库配置
+    apply from : 'maven.gradle'
+    repositories {
+        // 阿里云云效仓库（Gradle 插件）：https://maven.aliyun.com/mvn/guide
+        maven { url 'https://maven.aliyun.com/repository/gradle-plugin' }
+        addCommonMaven(repositories)
+    }
+}
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        addCommonMaven(repositories)
+    }
+}
+rootProject.name = "DuanZiL"
+include ':app'
+include 'library:base'

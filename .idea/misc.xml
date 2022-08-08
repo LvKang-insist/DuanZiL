@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="app/src/main/res/drawable/ic__4gf_playcircle.xml" value="0.205" />
+        <entry key="app/src/main/res/drawable/main_home_off_ic.xml" value="0.222" />
+        <entry key="app/src/main/res/drawable/main_home_on_ic.xml" value="0.222" />
+        <entry key="app/src/main/res/drawable/main_home_selector.xml" value="0.222" />
+        <entry key="app/src/main/res/drawable/main_msg_off_ic.xml" value="0.222" />
+        <entry key="app/src/main/res/drawable/main_msg_on_ic.xml" value="0.222" />
+        <entry key="app/src/main/res/drawable/main_msg_selector.xml" value="0.222" />
+        <entry key="app/src/main/res/drawable/main_nav_text.xml" value="0.222" />
+        <entry key="app/src/main/res/drawable/main_release_ic.xml" value="0.222" />
+        <entry key="app/src/main/res/drawable/main_slide_off_ic.xml" value="0.222" />
+        <entry key="app/src/main/res/drawable/main_slide_on_ic.xml" value="0.222" />
+        <entry key="app/src/main/res/drawable/main_slide_selector.xml" value="0.222" />
+        <entry key="app/src/main/res/drawable/main_user_off_ic.xml" value="0.222" />
+        <entry key="app/src/main/res/drawable/main_user_on_ic.xml" value="0.222" />
+        <entry key="app/src/main/res/drawable/main_user_selector.xml" value="0.222" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.125" />
+        <entry key="app/src/main/res/layout/frag_home.xml" value="0.42604166666666665" />
+        <entry key="app/src/main/res/layout/frag_home_tab.xml" value="0.24074074074074073" />
+        <entry key="app/src/main/res/layout/frag_msg.xml" value="0.425" />
+        <entry key="app/src/main/res/layout/frag_release.xml" value="0.425" />
+        <entry key="app/src/main/res/layout/frag_user.xml" value="0.425" />
+        <entry key="app/src/main/res/layout/frag_video.xml" value="0.425" />
+        <entry key="app/src/main/res/layout/home_tab_item_img.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/home_tab_item_text.xml" value="0.2" />
+        <entry key="app/src/main/res/layout/home_tab_item_video.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/main_navigation_item.xml" value="0.2453125" />
+        <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1275" />
+        <entry key="app/src/main/res/xml/styles.xml" value="0.22037037037037038" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>
