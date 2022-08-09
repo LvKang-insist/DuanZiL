@@ -67,7 +67,6 @@ private class ImgItemProvider : BaseItemProvider<AttentionListBean.AttentionList
             var img = item.joke.imageUrl.split(',')[0]
             img = img.subSequence(6, img.length).toString()
             img = AESUtils.decrypt(img)
-            Timber.e(img)
             GlideAppUtils.loadImageRound(context, img, it.image, 16)
             it.content.text = item.joke.content
             it.likeCount.text = item.info.likeNum.toString()

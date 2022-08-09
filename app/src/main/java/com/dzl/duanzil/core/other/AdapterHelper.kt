@@ -3,6 +3,7 @@ package com.dzl.duanzil.core.other
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.scwang.smart.refresh.layout.SmartRefreshLayout
+import timber.log.Timber
 
 /**
  * @name AdapterExt
@@ -35,6 +36,7 @@ class AdapterHelper(
         }
         if (isLoadMore) {
             smartRefresh.setOnLoadMoreListener {
+                Timber.e("---------------- $page")
 //                if (curPageCount >= LIST_PAGE_SIZE) {
                     loadRefresh?.invoke(this)
 //                } else {
@@ -64,11 +66,12 @@ class AdapterHelper(
         pageData?.run {
             setNewInstance(pageData.toMutableList())
             if (data.isEmpty() && isLoadMore) setEmpty()
-            smartRefresh.finishRefresh()
+            finishRefresh()
         } ?: kotlin.run {
             if (data.isEmpty() && isLoadMore) setEmpty()
-            smartRefresh.finishRefresh()
+            finishRefresh()
         }
+        smartRefresh.setEnableLoadMore(isLoadMore)
     }
 
     fun <T, VH : BaseViewHolder> BaseQuickAdapter<T, VH>.loadData(pageData: Collection<T>?) {

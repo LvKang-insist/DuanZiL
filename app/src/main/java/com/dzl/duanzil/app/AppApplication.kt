@@ -52,16 +52,9 @@ class AppApplication : Application() {
             }
             // 设置全局的 Footer 构建器
             SmartRefreshLayout.setDefaultRefreshFooterCreator { cx: Context?, layout: RefreshLayout? ->
-                ClassicsFooter(application)
-            }
-            // 设置全局初始化器
-            SmartRefreshLayout.setDefaultRefreshInitializer { cx: Context?, layout: RefreshLayout ->
-                // 刷新头部是否跟随内容偏移
-                layout.setEnableHeaderTranslationContent(true) // 刷新尾部是否跟随内容偏移
-                    .setEnableFooterTranslationContent(true) // 加载更多是否跟随内容偏移
-                    .setEnableFooterFollowWhenNoMoreData(true) // 内容不满一页时是否可以上拉加载更多
-                    .setEnableLoadMoreWhenContentNotFull(false) // 仿苹果越界效果开关
-                    .setEnableOverScrollDrag(false)
+                ClassicsFooter(application).apply {
+                    this.setPrimaryColorId(R.color.white)
+                }
             }
 
             // 初始化日志打印

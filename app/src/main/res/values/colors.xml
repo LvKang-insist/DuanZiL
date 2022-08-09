@@ -12,7 +12,10 @@
     <!--文字相关-->
     <color name="textColor">#FF111A34</color>
     <color name="textWhiteColor">#FFFFFFFF</color>
-    <color name="textMinorColor">#FF999999</color>
+    <color name="textMinorColor">#FF666F83</color>
+
+    <!--    未选中-->
+    <color name="unSelector">#FFa4a4a4</color>
 
     <color name="skin_primary">#FFFF9800</color>
     <color name="skin_background">#FFFFFFFF</color>

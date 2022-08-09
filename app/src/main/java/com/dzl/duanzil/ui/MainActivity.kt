@@ -27,7 +27,6 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>(), MainNavigationI
 
 
     override fun initView() {
-        navigationAdapter
         navigationAdapter.listener = this
         binding.mainNavigation.layoutManager = GridLayoutManager(this, 5)
     }

@@ -15,6 +15,7 @@ import com.dzl.duanzil.databinding.FragHomeTabBinding
 import com.dzl.duanzil.state.ListStatus
 import com.dzl.duanzil.state.home.HomeTabViewAction
 import com.dzl.duanzil.ui.home.adapter.HomeTabAdapter
+import com.dzl.duanzil.utils.JumpUtils
 import com.dzl.duanzil.viewmodel.HomeTabViewModel
 import com.hjq.toast.ToastUtils
 
@@ -69,8 +70,8 @@ class HomeTabFragment : BaseBindingFragment<FragHomeTabBinding>() {
                  }
             }
         }
-        adapter.setOnItemClickListener { adapter, view, position ->
-            ToastUtils.show("跳转")
+        adapter.setOnItemClickListener { _, _, position ->
+            JumpUtils.startHomeDetail(requireContext(),adapter.data[position].joke.jokesId)
         }
     }
 
