@@ -22,6 +22,8 @@
     <color name="skin_page_background">#FFF4F4F4</color>
 
 
-    <color name="divider">#FFE6E6E6</color>
+    <color name="divider">#FFEEEEEE</color>
+
+    <color name="input_background">#FFF6F6F6</color>
 
 </resources>

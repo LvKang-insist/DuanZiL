@@ -1,17 +1,21 @@
 package com.dzl.duanzil.ui.jokes
 
 
+import android.annotation.SuppressLint
 import android.view.Gravity
 import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.activity.viewModels
+import androidx.appcompat.widget.AppCompatImageView
 import androidx.lifecycle.lifecycleScope
+import com.btpj.lib_base.utils.DateUtil
 import com.dzl.duanzil.R
 import com.dzl.duanzil.bean.JokeListBean
 import com.dzl.duanzil.core.base.BaseBindingActivity
 import com.dzl.duanzil.databinding.ActivityJokesDetailBinding
 import com.dzl.duanzil.utils.AESUtils
 import com.dzl.duanzil.utils.GlideAppUtils
+import com.dzl.duanzil.utils.ScreenUtil
 import com.dzl.duanzil.viewmodel.JokesDetailViewModel
 import com.dzl.duanzil.viewmodel.JokesIntent
 import kotlinx.coroutines.CoroutineExceptionHandler
@@ -27,11 +31,12 @@ class JokesDetailActivity : BaseBindingActivity<ActivityJokesDetailBinding>() {
     val viewModel by viewModels<JokesDetailViewModel>()
 
     private val imageView by lazy {
-        ImageView(this).apply {
+        AppCompatImageView(this).apply {
             layoutParams = LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT,
             ).apply {
+                maxHeight = ScreenUtil.dp2px(this@JokesDetailActivity, 500f)
                 gravity = Gravity.CENTER
             }
         }
@@ -44,11 +49,8 @@ class JokesDetailActivity : BaseBindingActivity<ActivityJokesDetailBinding>() {
         viewModel.dispatch(JokesIntent.RefreshComment)
     }
 
+    @SuppressLint("SetTextI18n")
     override fun initData() {
-
-        lifecycleScope.launch(CoroutineExceptionHandler { c, t -> } + SupervisorJob()) {
-
-        }
 
         binding.toolbar.name.text = jokeBean.user.nickName
         GlideAppUtils.loadImageCircleCrop(this, jokeBean.user.avatar, binding.toolbar.avatar)
@@ -66,19 +68,22 @@ class JokesDetailActivity : BaseBindingActivity<ActivityJokesDetailBinding>() {
         binding.toolbar.address.text =
             jokeBean.user.signature.ifEmpty { "该用户暂无签名哟~~~" }
         binding.content.text = jokeBean.joke.content
-        binding.time.text = jokeBean.joke.addTime
+        binding.time.text =
+            "${DateUtil.getTimeFromNow(jokeBean.joke.addTime)} ${jokeBean.joke.showAddress}"
 
         binding.layout.removeAllViews()
         when (jokeBean.joke.type) {
             2 -> {
                 val url = AESUtils.decryptImg(jokeBean.joke.imageUrl)
-                Timber.e("${jokeBean.joke.imageSize} --- ${jokeBean.joke.imageUrl}")
-                Timber.e("${jokeBean.joke.imageSize} --- $url")
-                GlideAppUtils.loadImageMxHeight(this, url, imageView)
+                GlideAppUtils.loadImage(this, url, imageView)
                 binding.layout.addView(imageView)
             }
         }
 
+
+        GlideAppUtils.loadImageCircleCrop(this, jokeBean.user.avatar, binding.layoutComment.avatar)
+        binding.layoutComment.commentCount.text = "共 ${jokeBean.info.commentNum} 条评论"
+//        binding.layoutComment.comment.setRadius
     }
 
 }
