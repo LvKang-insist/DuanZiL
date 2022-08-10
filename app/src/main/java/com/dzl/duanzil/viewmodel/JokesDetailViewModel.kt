@@ -6,9 +6,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.dzl.duanzil.bean.CommentListBean
 import com.dzl.duanzil.bean.JokeBean
-import com.dzl.duanzil.state.home.HomeTabViewAction
+import com.dzl.duanzil.extension.jokesApi
+import com.lvhttp.net.launch.launchHttp
 import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 /**
@@ -25,28 +25,47 @@ class JokesDetailViewModel : ViewModel() {
 
     private val intent = MutableSharedFlow<JokesIntent>()
 
+    private var jokeId = -1
 
     init {
         viewModelScope.launch {
-            intent.collect{
-                when(it){
-                    JokesIntent.LoadJokesDetail -> TODO()
-                    JokesIntent.LoadMoreComment -> TODO()
-                    JokesIntent.RefreshComment -> TODO()
+            intent.collect {
+                when (it) {
+                    is JokesIntent.JokesId -> jokeId = it.jokeId
+                    JokesIntent.LoadJokesDetail -> jokesDetail()
+                    is JokesIntent.LoadMoreComment -> loadComment(it.page)
+                    JokesIntent.RefreshComment -> loadComment(0)
                 }
             }
         }
     }
 
-    private fun dispatch(jokesIntent: JokesIntent){
+    fun dispatch(jokesIntent: JokesIntent) {
         viewModelScope.launch { intent.emit(jokesIntent) }
     }
 
-    private fun jokesDetail(){
+    private fun jokesDetail() {
+        viewModelScope.launch {
+            launchHttp { jokesApi.jokesTarget(jokeId) }
+                .toData {
+                    _state.value = JokesUIState.JokesData(it.data)
+                }.toError {
 
+                }
+        }
     }
 
-    private fun loadComment(page:Int){
+    private fun loadComment(page: Int) {
+        viewModelScope.launch {
+            launchHttp {
+                jokesApi.jokesCommentList(jokeId, page)
+            }.toData {
+                if (page == 1)
+                    _state.value = JokesUIState.RefreshComment(it.data)
+                else
+                    _state.value = JokesUIState.LoadMoreComment(it.data)
+            }
+        }
     }
 
 }
@@ -59,7 +78,8 @@ sealed class JokesUIState {
 }
 
 sealed class JokesIntent {
+    data class JokesId(val jokeId: Int) : JokesIntent()
     object LoadJokesDetail : JokesIntent()
     object RefreshComment : JokesIntent()
-    object LoadMoreComment : JokesIntent()
+    data class LoadMoreComment(val page: Int) : JokesIntent()
 }

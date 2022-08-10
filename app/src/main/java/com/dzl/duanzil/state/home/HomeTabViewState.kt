@@ -1,6 +1,6 @@
 package com.dzl.duanzil.state.home
 
-import com.dzl.duanzil.bean.AttentionListBean
+import com.dzl.duanzil.bean.JokeListBean
 import com.dzl.duanzil.state.ListStatus
 
 /**
@@ -12,7 +12,7 @@ import com.dzl.duanzil.state.ListStatus
  */
 data class HomeTabViewState(
     var state: ListStatus,
-    var list: List<AttentionListBean.AttentionListBeanItem>? = null
+    var list: List<JokeListBean.JokeListBeanItem>? = null
 )
 
 

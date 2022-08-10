@@ -147,6 +147,8 @@ dependencies {
     kapt 'com.github.bumptech.glide:compiler:4.13.0'
     implementation 'jp.wasabeef:glide-transformations:4.3.0'
 
+    //图像视图
+    implementation 'com.davemorrissey.labs:subsampling-scale-image-view-androidx:3.10.0'
 
     // 多语种：https://github.com/getActivity/MultiLanguages
     // 悬浮窗：https://github.com/getActivity/XToast

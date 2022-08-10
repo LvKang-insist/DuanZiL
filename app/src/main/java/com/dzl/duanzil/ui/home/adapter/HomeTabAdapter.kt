@@ -5,13 +5,12 @@ import com.chad.library.adapter.base.BaseProviderMultiAdapter
 import com.chad.library.adapter.base.provider.BaseItemProvider
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.dzl.duanzil.R
-import com.dzl.duanzil.bean.AttentionListBean
+import com.dzl.duanzil.bean.JokeListBean
 import com.dzl.duanzil.databinding.HomeTabItemImgBinding
 import com.dzl.duanzil.databinding.HomeTabItemTextBinding
 import com.dzl.duanzil.databinding.HomeTabItemVideoBinding
 import com.dzl.duanzil.utils.AESUtils
 import com.dzl.duanzil.utils.GlideAppUtils
-import timber.log.Timber
 
 /**
  * @name HomeTabAdapter
@@ -20,7 +19,7 @@ import timber.log.Timber
  * @time 2022/08/04 14:48
  * @description
  */
-class HomeTabAdapter : BaseProviderMultiAdapter<AttentionListBean.AttentionListBeanItem>() {
+class HomeTabAdapter : BaseProviderMultiAdapter<JokeListBean.JokeListBeanItem>() {
 
     init {
         addItemProvider(ImgItemProvider())
@@ -29,7 +28,7 @@ class HomeTabAdapter : BaseProviderMultiAdapter<AttentionListBean.AttentionListB
     }
 
     override fun getItemType(
-        data: List<AttentionListBean.AttentionListBeanItem>,
+        data: List<JokeListBean.JokeListBeanItem>,
         position: Int
     ): Int {
         return data[position].itemType
@@ -38,13 +37,13 @@ class HomeTabAdapter : BaseProviderMultiAdapter<AttentionListBean.AttentionListB
 }
 
 
-private class TextItemProvider : BaseItemProvider<AttentionListBean.AttentionListBeanItem>() {
+private class TextItemProvider : BaseItemProvider<JokeListBean.JokeListBeanItem>() {
 
     override val itemViewType: Int = 1
     override val layoutId: Int
         get() = R.layout.home_tab_item_text
 
-    override fun convert(helper: BaseViewHolder, item: AttentionListBean.AttentionListBeanItem) {
+    override fun convert(helper: BaseViewHolder, item: JokeListBean.JokeListBeanItem) {
         DataBindingUtil.bind<HomeTabItemTextBinding>(helper.itemView)?.let {
             it.content.text = item.joke.content
             it.likeCount.text = item.info.likeNum.toString()
@@ -56,17 +55,16 @@ private class TextItemProvider : BaseItemProvider<AttentionListBean.AttentionLis
 
 }
 
-private class ImgItemProvider : BaseItemProvider<AttentionListBean.AttentionListBeanItem>() {
+private class ImgItemProvider : BaseItemProvider<JokeListBean.JokeListBeanItem>() {
 
     override val itemViewType: Int = 2
     override val layoutId: Int
         get() = R.layout.home_tab_item_img
 
-    override fun convert(helper: BaseViewHolder, item: AttentionListBean.AttentionListBeanItem) {
+    override fun convert(helper: BaseViewHolder, item: JokeListBean.JokeListBeanItem) {
         DataBindingUtil.bind<HomeTabItemImgBinding>(helper.itemView)?.let {
             var img = item.joke.imageUrl.split(',')[0]
-            img = img.subSequence(6, img.length).toString()
-            img = AESUtils.decrypt(img)
+            img = AESUtils.decryptImg(img)
             GlideAppUtils.loadImageRound(context, img, it.image, 16)
             it.content.text = item.joke.content
             it.likeCount.text = item.info.likeNum.toString()
@@ -79,18 +77,17 @@ private class ImgItemProvider : BaseItemProvider<AttentionListBean.AttentionList
 }
 
 
-private class VideoItemProvider : BaseItemProvider<AttentionListBean.AttentionListBeanItem>() {
+private class VideoItemProvider : BaseItemProvider<JokeListBean.JokeListBeanItem>() {
 
     override val itemViewType: Int = 3
     override val layoutId: Int
         get() = R.layout.home_tab_item_video
 
-    override fun convert(helper: BaseViewHolder, item: AttentionListBean.AttentionListBeanItem) {
+    override fun convert(helper: BaseViewHolder, item: JokeListBean.JokeListBeanItem) {
         DataBindingUtil.bind<HomeTabItemVideoBinding>(helper.itemView)?.let {
             var img = item.joke.thumbUrl
             if(img.contains( "ftp://")){
-                img = img.subSequence(6, img.length).toString()
-                img = AESUtils.decrypt(img)
+                img = AESUtils.decryptImg(img)
             }
             GlideAppUtils.loadImageRound(context, img, it.image, 16)
             it.content.text = item.joke.content

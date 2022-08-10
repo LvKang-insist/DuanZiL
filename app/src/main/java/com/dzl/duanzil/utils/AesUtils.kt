@@ -46,11 +46,10 @@ object AESUtils {
     }
 
     // 解密
-    fun decrypt(sSrc: String): String {
+    fun decryptImg(sSrc: String): String {
+        val img = sSrc.subSequence(6, sSrc.length).toString()
         return try {
-
-
-            val encrypted1: ByteArray = android.util.Base64.decode(sSrc, 0) //先用base64解密
+            val encrypted1: ByteArray = android.util.Base64.decode(img, 0) //先用base64解密
             try {
                 val original = cipher.doFinal(encrypted1)
                 String(original)

@@ -1,13 +1,19 @@
 package com.dzl.duanzil.utils
 
 import android.content.Context
+import android.graphics.Bitmap
 import android.widget.ImageView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.load.MultiTransformation
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import com.dzl.duanzil.app.GlideApp
 import jp.wasabeef.glide.transformations.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import timber.log.Timber
 
 /**
  * @name GlideUtils
@@ -34,13 +40,13 @@ object GlideAppUtils {
 
     fun loadImageMxHeight(context: Context, url: String, imageView: ImageView, radius: Int = 0) {
         val options =
-            RequestOptions().transform(
-                MultiTransformation(
-                    CenterCrop(),
-                    RoundedCorners(radius)
-                )
-            )
-        GlideApp.with(context).load(url).override(imageView.width, Int.MAX_VALUE).apply(options).into(imageView)
+//            RequestOptions().transform(
+//                MultiTransformation(
+////                    CenterCrop(),
+////                    RoundedCorners(radius)
+//                )
+//            )
+        GlideApp.with(context).load(url).override(imageView.width, 100).into(imageView)
     }
 
     /**
@@ -156,6 +162,18 @@ object GlideAppUtils {
                 .centerCrop()
                 .transform(ColorFilterTransformation(color))
         GlideApp.with(context).load(url).apply(options).into(imageView)
+    }
+
+    fun loadBitmap(activity: AppCompatActivity, url: String, block: (Bitmap) -> Unit) {
+        Timber.e("--------- $url")
+        activity.lifecycleScope.launch(Dispatchers.IO) {
+            val bitmap = GlideApp.with(activity)
+                .asBitmap()
+                .load(url)
+                .submit()
+                .get()
+            launch(Dispatchers.Main) { block.invoke(bitmap) }
+        }
     }
 
 }

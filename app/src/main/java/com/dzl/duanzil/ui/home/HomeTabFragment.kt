@@ -1,12 +1,8 @@
 package com.dzl.duanzil.ui.home
 
-import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
-import com.chad.library.adapter.base.BaseQuickAdapter
-import com.chad.library.adapter.base.listener.OnItemChildClickListener
-import com.chad.library.adapter.base.listener.OnItemClickListener
 import com.dzl.duanzil.R
 import com.dzl.duanzil.core.base.BaseBindingFragment
 import com.dzl.duanzil.core.other.AdapterHelper
@@ -71,7 +67,7 @@ class HomeTabFragment : BaseBindingFragment<FragHomeTabBinding>() {
             }
         }
         adapter.setOnItemClickListener { _, _, position ->
-            JumpUtils.startHomeDetail(requireContext(),adapter.data[position].joke.jokesId)
+            JumpUtils.startHomeDetail(requireContext(), adapter.data[position])
         }
     }
 

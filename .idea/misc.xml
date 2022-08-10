@@ -23,7 +23,7 @@
         <entry key="app/src/main/res/drawable/shape_primary_small_on.xml" value="0.191" />
         <entry key="app/src/main/res/drawable/shape_primary_small_selector.xml" value="0.191" />
         <entry key="app/src/main/res/layout/activity_home_detail.xml" value="0.22" />
-        <entry key="app/src/main/res/layout/activity_jokes_detail.xml" value="0.24947916666666667" />
+        <entry key="app/src/main/res/layout/activity_jokes_detail.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.125" />
         <entry key="app/src/main/res/layout/frag_home.xml" value="0.42604166666666665" />
         <entry key="app/src/main/res/layout/frag_home_tab.xml" value="0.24074074074074073" />
@@ -34,7 +34,8 @@
         <entry key="app/src/main/res/layout/home_tab_item_img.xml" value="0.4241645244215938" />
         <entry key="app/src/main/res/layout/home_tab_item_text.xml" value="0.2" />
         <entry key="app/src/main/res/layout/home_tab_item_video.xml" value="0.33" />
-        <entry key="app/src/main/res/layout/layout_detail_toolbar.xml" value="0.5" />
+        <entry key="app/src/main/res/layout/layout_detail_toolbar.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/layout_joke_image.xml" value="0.475" />
         <entry key="app/src/main/res/layout/main_navigation_item.xml" value="0.2453125" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1275" />
         <entry key="app/src/main/res/xml/styles.xml" value="0.22037037037037038" />
