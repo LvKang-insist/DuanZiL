@@ -32,7 +32,6 @@ class JokesDetailViewModel : ViewModel() {
             intent.collect {
                 when (it) {
                     is JokesIntent.JokesId -> jokeId = it.jokeId
-                    JokesIntent.LoadJokesDetail -> jokesDetail()
                     is JokesIntent.LoadMoreComment -> loadComment(it.page)
                     JokesIntent.RefreshComment -> loadComment(0)
                 }
@@ -45,14 +44,7 @@ class JokesDetailViewModel : ViewModel() {
     }
 
     private fun jokesDetail() {
-        viewModelScope.launch {
-            launchHttp { jokesApi.jokesTarget(jokeId) }
-                .toData {
-                    _state.value = JokesUIState.JokesData(it.data)
-                }.toError {
 
-                }
-        }
     }
 
     private fun loadComment(page: Int) {
@@ -72,14 +64,12 @@ class JokesDetailViewModel : ViewModel() {
 
 
 sealed class JokesUIState {
-    data class JokesData(val jokeBean: JokeBean) : JokesUIState()
     data class RefreshComment(val comment: CommentListBean) : JokesUIState()
     data class LoadMoreComment(val comment: CommentListBean) : JokesUIState()
 }
 
 sealed class JokesIntent {
     data class JokesId(val jokeId: Int) : JokesIntent()
-    object LoadJokesDetail : JokesIntent()
     object RefreshComment : JokesIntent()
     data class LoadMoreComment(val page: Int) : JokesIntent()
 }

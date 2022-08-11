@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import com.dzl.duanzil.bean.JokeListBean
 import com.dzl.duanzil.ui.jokes.JokesDetailActivity
+import com.dzl.duanzil.ui.login.LoginActivity
 
 /**
  * @name JumpUtils
@@ -14,6 +15,10 @@ import com.dzl.duanzil.ui.jokes.JokesDetailActivity
  */
 object JumpUtils {
 
+
+    fun startLogin(context: Context) {
+        startActivity(context, LoginActivity::class.java)
+    }
 
     /** 段子详情 */
     fun startHomeDetail(context: Context, jokeBean: JokeListBean.JokeListBeanItem) {

@@ -94,6 +94,11 @@
             android:name=".ui.jokes.JokesDetailActivity"
             android:exported="false"
             android:launchMode="singleTop" />
+
+        <activity
+            android:name=".ui.login.LoginActivity"
+            android:exported="false"
+            android:launchMode="singleTop" />
     </application>
 
 </manifest>

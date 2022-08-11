@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/skin_background">
+
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/toolbar"
+            android:layout_width="@dimen/dp_32"
+            android:layout_height="@dimen/dp_32"
+            android:layout_marginStart="@dimen/dp_32"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/title"
+            style="@style/TextStyleHead1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_28"
+            android:text="@string/verification_code_login"
+            app:layout_constraintLeft_toLeftOf="@id/toolbar"
+            app:layout_constraintTop_toBottomOf="@id/toolbar" />
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/input_number"
+            style="@style/TextStyleBody2"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/dp_40"
+            android:layout_marginStart="@dimen/dp_32"
+            android:layout_marginTop="@dimen/dp_46"
+            android:layout_marginEnd="@dimen/dp_32"
+            android:background="@color/input_background"
+            android:hint="@string/please_input_phone_code"
+            android:paddingHorizontal="@dimen/dp_12"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/title" />
+
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/input_password"
+            style="@style/TextStyleBody2"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/dp_40"
+            android:layout_marginStart="@dimen/dp_32"
+            android:layout_marginTop="@dimen/dp_12"
+            android:layout_marginEnd="@dimen/dp_32"
+            android:background="@color/input_background"
+            android:hint="@string/please_input_phone_code"
+            android:paddingHorizontal="@dimen/dp_16"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/input_number" />
+
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="0dp"
+            android:id="@+id/login"
+            android:layout_height="@dimen/dp_40"
+            android:layout_marginStart="@dimen/dp_32"
+            android:layout_marginTop="@dimen/dp_32"
+            android:layout_marginEnd="@dimen/dp_32"
+            android:background="@color/skin_primary"
+            android:textColor="@color/white"
+            android:text="@string/login"
+            android:textSize="@dimen/sp_16"
+            android:gravity="center"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/input_password" />
+
+
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="0dp"
+            android:id="@+id/send_code"
+            android:layout_height="@dimen/dp_40"
+            android:layout_marginStart="@dimen/dp_32"
+            android:layout_marginTop="@dimen/dp_32"
+            android:layout_marginEnd="@dimen/dp_32"
+            android:background="@color/skin_primary"
+            android:textColor="@color/white"
+            android:text="@string/send_code"
+            android:textSize="@dimen/sp_16"
+            android:gravity="center"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/login" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

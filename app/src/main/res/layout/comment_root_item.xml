@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_16"
+        android:layout_marginEnd="@dimen/dp_16"
+        android:layout_marginTop="@dimen/dp_16">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/avatar"
+            android:layout_width="@dimen/dp_32"
+            android:layout_height="@dimen/dp_32"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/name"
+            style="@style/TextStyleSubtitle3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_8"
+            android:ellipsize="end"
+            android:maxWidth="@dimen/dp_150"
+            android:maxLines="1"
+            app:layout_constraintLeft_toRightOf="@id/avatar"
+            app:layout_constraintTop_toTopOf="@id/avatar"
+            tools:text="我是姓名我是姓名我是姓名我是姓名我是姓名我是姓名" />
+
+
+        <androidx.appcompat.widget.AppCompatTextView
+            style="@style/TextStyleBody3"
+            android:layout_width="@dimen/dp_25"
+            android:layout_height="@dimen/dp_15"
+            android:background="@color/text_background"
+            android:gravity="center"
+            android:text="作者"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@id/name"
+            app:layout_constraintLeft_toRightOf="@id/name"
+            app:layout_constraintTop_toTopOf="@id/name" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/content"
+            style="@style/TextStyleBody2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_8"
+            android:layout_marginTop="@dimen/dp_4"
+            android:layout_marginEnd="@dimen/dp_48"
+            app:layout_constraintLeft_toRightOf="@id/avatar"
+            app:layout_constraintRight_toLeftOf="@id/like"
+            app:layout_constraintTop_toBottomOf="@id/name" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/like"
+            android:layout_width="@dimen/dp_16"
+            android:layout_height="@dimen/dp_16"
+            android:layout_marginEnd="@dimen/dp_16"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@id/avatar" />
+
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/like_count"
+            style="@style/TextStyleBody3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="@id/like"
+            app:layout_constraintRight_toRightOf="@id/like"
+            app:layout_constraintTop_toBottomOf="@id/like" />
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

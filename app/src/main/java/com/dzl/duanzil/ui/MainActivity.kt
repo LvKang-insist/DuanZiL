@@ -4,11 +4,14 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.dzl.duanzil.R
 import com.dzl.duanzil.core.base.BaseBindingActivity
 import com.dzl.duanzil.databinding.ActivityMainBinding
+import com.dzl.duanzil.extension.MMkvEnum
+import com.dzl.duanzil.extension.getString
 import com.dzl.duanzil.ui.adapter.MainNavigationAdapter
 import com.dzl.duanzil.ui.adapter.MainNavigationItemClickListener
 import com.dzl.duanzil.ui.home.HomeFragment
@@ -16,6 +19,9 @@ import com.dzl.duanzil.ui.msg.MsgFragment
 import com.dzl.duanzil.ui.release.ReleaseFragment
 import com.dzl.duanzil.ui.user.UserFragment
 import com.dzl.duanzil.ui.video.VideoFragment
+import com.dzl.duanzil.utils.JumpUtils
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class MainActivity : BaseBindingActivity<ActivityMainBinding>(), MainNavigationItemClickListener {
 
@@ -29,6 +35,12 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>(), MainNavigationI
     override fun initView() {
         navigationAdapter.listener = this
         binding.mainNavigation.layoutManager = GridLayoutManager(this, 5)
+
+        if (MMkvEnum.TOKEN.getString().isEmpty())
+            lifecycleScope.launch {
+                delay(5000)
+                JumpUtils.startLogin(this@MainActivity)
+            }
     }
 
 

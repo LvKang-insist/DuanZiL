@@ -17,19 +17,19 @@ class AdapterHelper(
     private val refresh: ((AdapterHelper) -> Unit)? = null,
     private val loadRefresh: ((AdapterHelper) -> Unit)? = null,
     private val isLoadMore: Boolean = true,
-    private val enableRefresh: Boolean = true,
+    private val isRefresh: Boolean = true,
 ) {
     companion object {
         const val LIST_PAGE_SIZE = 20
     }
 
-    var page: Int = 1
+    var page: Int = 0
 
     /** 当前页数量 */
     private var curPageCount = 0
 
     init {
-        smartRefresh.setEnableRefresh(enableRefresh)
+        smartRefresh.setEnableRefresh(isRefresh)
         smartRefresh.setEnableLoadMore(isLoadMore)
         smartRefresh.setOnRefreshListener {
             refresh?.invoke(this)

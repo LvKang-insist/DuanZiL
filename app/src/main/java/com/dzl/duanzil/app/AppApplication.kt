@@ -43,7 +43,7 @@ class AppApplication : Application() {
             // 设置全局的 Header 构建器
 
             // 设置全局的 Header 构建器
-            SmartRefreshLayout.setDefaultRefreshHeaderCreator { cx: Context?, layout: RefreshLayout? ->
+            SmartRefreshLayout.setDefaultRefreshHeaderCreator { _: Context?, _: RefreshLayout? ->
                 MaterialHeader(
                     application
                 ).setColorSchemeColors(
@@ -51,7 +51,7 @@ class AppApplication : Application() {
                 )
             }
             // 设置全局的 Footer 构建器
-            SmartRefreshLayout.setDefaultRefreshFooterCreator { cx: Context?, layout: RefreshLayout? ->
+            SmartRefreshLayout.setDefaultRefreshFooterCreator { _: Context?, _: RefreshLayout? ->
                 ClassicsFooter(application).apply {
                     this.setPrimaryColorId(R.color.white)
                 }

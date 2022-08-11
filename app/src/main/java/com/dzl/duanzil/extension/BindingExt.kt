@@ -1,5 +1,9 @@
 package com.dzl.duanzil.extension
 
+import android.view.View
+import androidx.databinding.BindingAdapter
+import com.dzl.duanzil.core.other.RoundViewHelper
+
 /**
  * @name BindingExt
  * @package com.dzl.duanzil.extension

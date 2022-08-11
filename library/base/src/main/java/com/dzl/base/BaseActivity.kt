@@ -27,6 +27,7 @@ abstract class BaseActivity : AppCompatActivity() {
     private fun initActivity() {
         initLayout()
         initView()
+        listener()
         initData()
     }
 
@@ -59,6 +60,8 @@ abstract class BaseActivity : AppCompatActivity() {
     /** 初始化数据 */
     open fun initData() = Unit
 
+    /** 初始化点击事件 */
+    open fun listener() = Unit
 
     override fun finish() {
         super.finish()

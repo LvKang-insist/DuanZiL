@@ -150,6 +150,9 @@ dependencies {
     //图像视图
     implementation 'com.davemorrissey.labs:subsampling-scale-image-view-androidx:3.10.0'
 
+    //嵌套滚动容器
+    implementation 'com.github.donkingliang:ConsecutiveScroller:4.6.1'
+
     // 多语种：https://github.com/getActivity/MultiLanguages
     // 悬浮窗：https://github.com/getActivity/XToast
     // 日志输出：https://github.com/getActivity/Logcat

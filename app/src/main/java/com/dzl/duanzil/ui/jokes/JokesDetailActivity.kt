@@ -3,24 +3,26 @@ package com.dzl.duanzil.ui.jokes
 
 import android.annotation.SuppressLint
 import android.view.Gravity
-import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.activity.viewModels
 import androidx.appcompat.widget.AppCompatImageView
-import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.Observer
 import com.btpj.lib_base.utils.DateUtil
 import com.dzl.duanzil.R
 import com.dzl.duanzil.bean.JokeListBean
 import com.dzl.duanzil.core.base.BaseBindingActivity
+import com.dzl.duanzil.core.other.AdapterHelper
 import com.dzl.duanzil.databinding.ActivityJokesDetailBinding
+import com.dzl.duanzil.extension.MMkvEnum
+import com.dzl.duanzil.extension.getString
+import com.dzl.duanzil.extension.setRadius
+import com.dzl.duanzil.ui.adapter.JokeCommentAdapter
 import com.dzl.duanzil.utils.AESUtils
 import com.dzl.duanzil.utils.GlideAppUtils
 import com.dzl.duanzil.utils.ScreenUtil
 import com.dzl.duanzil.viewmodel.JokesDetailViewModel
 import com.dzl.duanzil.viewmodel.JokesIntent
-import kotlinx.coroutines.CoroutineExceptionHandler
-import kotlinx.coroutines.SupervisorJob
-import kotlinx.coroutines.launch
+import com.dzl.duanzil.viewmodel.JokesUIState
 import timber.log.Timber
 
 class JokesDetailActivity : BaseBindingActivity<ActivityJokesDetailBinding>() {
@@ -42,11 +44,34 @@ class JokesDetailActivity : BaseBindingActivity<ActivityJokesDetailBinding>() {
         }
     }
 
+    private val adapter = JokeCommentAdapter()
+    private val adapterHelper by lazy {
+        AdapterHelper(binding.refresh, isRefresh = false, isLoadMore = true, loadRefresh = {
+            viewModel.dispatch(JokesIntent.LoadMoreComment(it.page))
+        })
+    }
+
     override fun getLayoutId(): Int = R.layout.activity_jokes_detail
 
     override fun initView() {
-        viewModel.dispatch(JokesIntent.JokesId(jokeBean.joke.jokesId))
+        //168510
+        Timber.e("jokeId :${jokeBean.joke.jokesId}   ${MMkvEnum.TOKEN.getString()}")
+        binding.recycler.adapter = adapter
+        viewModel.dispatch(JokesIntent.JokesId(168510))
         viewModel.dispatch(JokesIntent.RefreshComment)
+    }
+
+    override fun listener() {
+        viewModel.state.observe(this, Observer {
+            when (it) {
+                is JokesUIState.LoadMoreComment -> {
+                    adapterHelper.run { adapter.loadData(it.comment.comments) }
+                }
+                is JokesUIState.RefreshComment -> {
+                    adapterHelper.run { adapter.refreshData(it.comment.comments) }
+                }
+            }
+        })
     }
 
     @SuppressLint("SetTextI18n")
@@ -80,10 +105,9 @@ class JokesDetailActivity : BaseBindingActivity<ActivityJokesDetailBinding>() {
             }
         }
 
-
         GlideAppUtils.loadImageCircleCrop(this, jokeBean.user.avatar, binding.layoutComment.avatar)
         binding.layoutComment.commentCount.text = "共 ${jokeBean.info.commentNum} 条评论"
-//        binding.layoutComment.comment.setRadius
+        binding.layoutComment.comment.setRadius(ScreenUtil.dp2px(this, 16f))
     }
 
 }

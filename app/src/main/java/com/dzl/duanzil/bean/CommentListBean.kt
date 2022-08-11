@@ -1,5 +1,8 @@
 package com.dzl.duanzil.bean
 
+import com.chad.library.adapter.base.entity.node.BaseNode
+import com.chad.library.adapter.base.entity.node.NodeFooterImp
+
 /**
  * @name CommentListBean
  * @package com.dzl.duanzil.bean
@@ -16,35 +19,28 @@ data class CommentListBean(
         val commentUser: CommentUser,
         val content: String,
         val isLike: Boolean, // true
-        val itemCommentList: List<ItemComment>,
+        val itemCommentList: CommentListItemBean?,
         val itemCommentNum: Int, // 0
         val jokeId: Int, // 0
         val jokeOwnerUserId: Int, // 0
         val likeNum: Int, // 0
         val timeStr: String
-    ) {
+    ) : BaseNode(), NodeFooterImp {
         data class CommentUser(
             val nickname: String,
             val userAvatar: String,
             val userId: Int // 0
         )
 
-        data class ItemComment(
-            val commentItemId: Int, // 0
-            val commentParentId: Int, // 0
-            val commentUser: CommentUser,
-            val commentedNickname: String,
-            val commentedUserId: Int, // 0
-            val content: String,
-            val isReplyChild: Boolean, // true
-            val jokeId: Int, // 0
-            val timeStr: String
-        ) {
-            data class CommentUser(
-                val nickname: String,
-                val userAvatar: String,
-                val userId: Int // 0
-            )
-        }
+        override val childNode: MutableList<BaseNode>?
+            get() = if (itemCommentList == null) null
+            else if (itemCommentList.size > 2) itemCommentList.subList(0, 2).toMutableList()
+            else itemCommentList.toMutableList()
+
+        override val footerNode: BaseNode?
+            get() =
+                if (itemCommentList == null || itemCommentList.size < 2)
+                    null
+                else CommentFooterBean("显示更多...")
     }
 }
