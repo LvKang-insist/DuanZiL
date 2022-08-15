@@ -1,6 +1,7 @@
 package com.dzl.duanzil.core.net.api
 
 import com.dzl.duanzil.bean.CommentListBean
+import com.dzl.duanzil.bean.CommentListItemBean
 import com.dzl.duanzil.bean.JokeBean
 import com.dzl.duanzil.bean.JokeListBean
 import com.dzl.duanzil.core.net.ResponseData
@@ -35,12 +36,13 @@ interface JokesApi {
         @Field("page") page: Int
     ): ResponseData<CommentListBean>
 
-    /** 获取评论列表 */
+    /** 获取子评论列表 */
     @POST("jokes/comment/list/item")
+    @FormUrlEncoded
     suspend fun jokesCommentListItem(
-        @Body jokeId: Int,
-        @Body page: Int
-    ): ResponseData<CommentListBean>
+        @Field("commentId") commentId: Int,
+        @Field("page") page: Int
+    ): ResponseData<List<CommentListItemBean>>
 
 
 }

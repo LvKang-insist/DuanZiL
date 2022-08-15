@@ -2,6 +2,7 @@ package com.dzl.duanzil.ui.home.adapter
 
 import androidx.databinding.DataBindingUtil
 import com.chad.library.adapter.base.BaseProviderMultiAdapter
+import com.chad.library.adapter.base.module.LoadMoreModule
 import com.chad.library.adapter.base.provider.BaseItemProvider
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.dzl.duanzil.R
@@ -19,7 +20,7 @@ import com.dzl.duanzil.utils.GlideAppUtils
  * @time 2022/08/04 14:48
  * @description
  */
-class HomeTabAdapter : BaseProviderMultiAdapter<JokeListBean.JokeListBeanItem>() {
+class HomeTabAdapter : BaseProviderMultiAdapter<JokeListBean.JokeListBeanItem>(), LoadMoreModule {
 
     init {
         addItemProvider(ImgItemProvider())

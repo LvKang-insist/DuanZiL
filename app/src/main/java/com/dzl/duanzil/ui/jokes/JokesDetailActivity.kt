@@ -9,7 +9,7 @@ import androidx.appcompat.widget.AppCompatImageView
 import androidx.lifecycle.Observer
 import com.btpj.lib_base.utils.DateUtil
 import com.dzl.duanzil.R
-import com.dzl.duanzil.bean.JokeListBean
+import com.dzl.duanzil.bean.*
 import com.dzl.duanzil.core.base.BaseBindingActivity
 import com.dzl.duanzil.core.other.AdapterHelper
 import com.dzl.duanzil.databinding.ActivityJokesDetailBinding
@@ -62,6 +62,22 @@ class JokesDetailActivity : BaseBindingActivity<ActivityJokesDetailBinding>() {
     }
 
     override fun listener() {
+        adapter.addChildClickViewIds(R.id.unfold, R.id.unfold_more, R.id.isOpen)
+        adapter.setOnItemChildClickListener { _, view, position ->
+            val node = adapter.data[position]
+            when (view.id) {
+                R.id.unfold -> {
+                    (node as? CommentFooterBean)?.let { moreComment(it.commentId, position) }
+                }
+                R.id.unfold_more -> {
+                    (node as? CommentFooterMoreBean)?.let { moreComment(it.commentId, position) }
+                }
+                R.id.isOpen -> {
+                    (node as? CommentFooterIsOpen)?.let { expanded(it.commentId, position) }
+                }
+            }
+        }
+
         viewModel.state.observe(this, Observer {
             when (it) {
                 is JokesUIState.LoadMoreComment -> {
@@ -70,9 +86,72 @@ class JokesDetailActivity : BaseBindingActivity<ActivityJokesDetailBinding>() {
                 is JokesUIState.RefreshComment -> {
                     adapterHelper.run { adapter.refreshData(it.comment.comments) }
                 }
+                is JokesUIState.LoadMoreChildComment -> {
+                    (adapter.data[it.parentPos] as? CommentListBean.Comment)?.let { bean ->
+                        setChildLoadComment(bean, it)
+                    }
+                }
             }
         })
     }
+
+    private fun expanded(commentId: Int, position: Int) {
+        var parPos = -1
+        for (i in 0 until adapter.data.size) {
+            (adapter.data[i] as? CommentListBean.Comment)?.let {
+                if (it.commentId == commentId) parPos = i
+            }
+            if (parPos != -1) break
+        }
+        if (parPos != -1) {
+            val node = adapter.data[parPos]
+            (node as? CommentListBean.Comment)?.let {
+                if(it.expanded){
+                    adapter.data[position] = CommentFooterIsOpen(commentId,"展开")
+                    adapter.notifyItemChanged(position)
+                    adapter.collapseAndChild(parPos)
+                }else{
+                    adapter.data[position] = CommentFooterIsOpen(commentId,"折叠")
+                    adapter.notifyItemChanged(position)
+                    adapter.expandAndChild(parPos)
+                }
+            }
+        }
+    }
+
+    /** 设置子评论数据 */
+    private fun setChildLoadComment(
+        bean: CommentListBean.Comment,
+        state: JokesUIState.LoadMoreChildComment
+    ) {
+        //评论数<总数
+        if ((bean.childNode?.size ?: (0 + state.comment.size)) < bean.itemCommentNum) {
+            adapter.data[state.curPos] = CommentFooterMoreBean(bean.commentId)
+        } else {
+            adapter.data[state.curPos] = CommentFooterIsOpen(bean.commentId, "收起")
+        }
+        adapter.notifyItemChanged(state.curPos)
+        adapter.nodeAddData(bean, bean.itemCommentList.size, state.comment)
+    }
+
+    private fun moreComment(commentId: Int, position: Int) {
+        var parPos = -1
+        for (i in 0 until adapter.data.size) {
+            (adapter.data[i] as? CommentListBean.Comment)?.let {
+                if (it.commentId == commentId) parPos = i
+            }
+            if (parPos != -1) break
+        }
+        (adapter.data[parPos] as? CommentListBean.Comment)?.run {
+            adapter.data[position] = CommentFooterRefreshBean()
+            adapter.notifyItemChanged(position)
+            viewModel.dispatch(
+                JokesIntent.LoadMoreChildComment(this.page, commentId, parPos, position)
+            )
+            this.page++
+        }
+    }
+
 
     @SuppressLint("SetTextI18n")
     override fun initData() {

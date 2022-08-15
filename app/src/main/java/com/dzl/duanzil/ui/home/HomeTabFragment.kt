@@ -60,10 +60,10 @@ class HomeTabFragment : BaseBindingFragment<FragHomeTabBinding>() {
     override fun listener() {
         adapter.addChildClickViewIds(R.id.like,R.id.like_count)
         adapter.setOnItemChildClickListener { adapter, view, position ->
-            when(view.id){
-                 R.id.like,R.id.like_count ->{
-                     ToastUtils.show("点赞")
-                 }
+            when (view.id) {
+                R.id.like, R.id.like_count -> {
+                    ToastUtils.show("点赞")
+                }
             }
         }
         adapter.setOnItemClickListener { _, _, position ->

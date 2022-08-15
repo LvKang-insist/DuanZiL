@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.dzl.duanzil.bean.CommentListBean
-import com.dzl.duanzil.bean.JokeBean
+import com.dzl.duanzil.bean.CommentListItemBean
 import com.dzl.duanzil.extension.jokesApi
 import com.lvhttp.net.launch.launchHttp
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -33,7 +33,10 @@ class JokesDetailViewModel : ViewModel() {
                 when (it) {
                     is JokesIntent.JokesId -> jokeId = it.jokeId
                     is JokesIntent.LoadMoreComment -> loadComment(it.page)
-                    JokesIntent.RefreshComment -> loadComment(0)
+                    is JokesIntent.RefreshComment -> loadComment(0)
+                    is JokesIntent.LoadMoreChildComment -> loadChildComment(
+                        it.page, it.commentId, it.parentPos, it.curPos
+                    )
                 }
             }
         }
@@ -43,8 +46,15 @@ class JokesDetailViewModel : ViewModel() {
         viewModelScope.launch { intent.emit(jokesIntent) }
     }
 
-    private fun jokesDetail() {
 
+    private fun loadChildComment(page: Int, commentId: Int, parentPos: Int, curPos: Int) {
+        viewModelScope.launch {
+            launchHttp {
+                jokesApi.jokesCommentListItem(commentId, page)
+            }.toData {
+                _state.value = JokesUIState.LoadMoreChildComment(it.data, parentPos, curPos)
+            }
+        }
     }
 
     private fun loadComment(page: Int) {
@@ -52,7 +62,7 @@ class JokesDetailViewModel : ViewModel() {
             launchHttp {
                 jokesApi.jokesCommentList(jokeId, page)
             }.toData {
-                if (page == 1)
+                if (page == 0)
                     _state.value = JokesUIState.RefreshComment(it.data)
                 else
                     _state.value = JokesUIState.LoadMoreComment(it.data)
@@ -66,10 +76,24 @@ class JokesDetailViewModel : ViewModel() {
 sealed class JokesUIState {
     data class RefreshComment(val comment: CommentListBean) : JokesUIState()
     data class LoadMoreComment(val comment: CommentListBean) : JokesUIState()
+
+
+    data class LoadMoreChildComment(
+        val comment: List<CommentListItemBean>,
+        val parentPos: Int,
+        val curPos: Int
+    ) : JokesUIState()
 }
 
 sealed class JokesIntent {
     data class JokesId(val jokeId: Int) : JokesIntent()
     object RefreshComment : JokesIntent()
     data class LoadMoreComment(val page: Int) : JokesIntent()
+
+    data class LoadMoreChildComment(
+        val page: Int,
+        val commentId: Int,
+        val parentPos: Int,
+        val curPos: Int
+    ) : JokesIntent()
 }

@@ -3,15 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginStart="@dimen/dp_56"
+    android:layout_marginStart="@dimen/dp_88"
     android:layout_marginTop="@dimen/dp_8">
 
 
     <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/unfold"
+        android:id="@+id/load"
+        style="@style/TextStyleSubtitle4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="#172473"
+        android:text="加载中...."
         android:textSize="@dimen/sp_12"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

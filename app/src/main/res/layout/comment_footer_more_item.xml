@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/footer_more"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginStart="@dimen/dp_56"
+    android:layout_marginStart="@dimen/dp_88"
     android:layout_marginTop="@dimen/dp_8">
 
 
     <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/unfold"
+        android:id="@+id/unfold_more"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="#172473"

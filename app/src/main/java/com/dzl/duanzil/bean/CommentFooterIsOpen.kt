@@ -9,7 +9,7 @@ import com.chad.library.adapter.base.entity.node.BaseNode
  * @time 2022/08/11 11:32
  * @description
  */
-class CommentFooterBean(val commentId: Int, val commentCount: Int) : BaseNode() {
+class CommentFooterIsOpen(val commentId: Int,val  text: String) : BaseNode() {
     override val childNode: MutableList<BaseNode>
         get() = mutableListOf()
 }

@@ -8,11 +8,12 @@
 
 
     <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/unfold"
+        android:id="@+id/isOpen"
+        style="@style/TextStyleSubtitle4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="#172473"
         android:textSize="@dimen/sp_12"
+        android:textColor="#172473"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

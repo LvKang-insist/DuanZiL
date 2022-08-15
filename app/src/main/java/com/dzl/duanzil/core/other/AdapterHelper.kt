@@ -20,7 +20,7 @@ class AdapterHelper(
     private val isRefresh: Boolean = true,
 ) {
     companion object {
-        const val LIST_PAGE_SIZE = 20
+        const val LIST_PAGE_SIZE = 10
     }
 
     var page: Int = 0
@@ -36,12 +36,11 @@ class AdapterHelper(
         }
         if (isLoadMore) {
             smartRefresh.setOnLoadMoreListener {
-                Timber.e("---------------- $page")
-//                if (curPageCount >= LIST_PAGE_SIZE) {
+                if (curPageCount >= LIST_PAGE_SIZE) {
                     loadRefresh?.invoke(this)
-//                } else {
-//                    smartRefresh.finishLoadMoreWithNoMoreData()
-//                }
+                } else {
+                    smartRefresh.finishLoadMoreWithNoMoreData()
+                }
             }
         }
     }
@@ -66,6 +65,7 @@ class AdapterHelper(
         pageData?.run {
             setNewInstance(pageData.toMutableList())
             if (data.isEmpty() && isLoadMore) setEmpty()
+            curPageCount = pageData.size
             finishRefresh()
         } ?: kotlin.run {
             if (data.isEmpty() && isLoadMore) setEmpty()
