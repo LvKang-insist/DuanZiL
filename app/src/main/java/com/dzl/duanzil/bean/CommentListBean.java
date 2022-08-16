@@ -36,7 +36,7 @@ public class CommentListBean {
         this.count = count;
     }
 
-    public static class Comment extends BaseNode implements NodeFooterImp {
+    public static class Comment extends BaseExpandNode implements NodeFooterImp {
         private Integer commentId;
         private CommentUser commentUser;
         private String content;
@@ -47,16 +47,9 @@ public class CommentListBean {
         private Integer jokeOwnerUserId;
         private Integer likeNum;
         private String timeStr;
-        private int page = 0;
-        private Boolean isExpanded = false;
+        private int page = 1;
 
-        public Boolean getExpanded() {
-            return isExpanded;
-        }
 
-        public void setExpanded(Boolean expanded) {
-            isExpanded = expanded;
-        }
 
         @Nullable
         @Override

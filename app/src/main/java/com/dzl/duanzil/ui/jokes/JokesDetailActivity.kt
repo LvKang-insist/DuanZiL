@@ -23,6 +23,9 @@ import com.dzl.duanzil.utils.ScreenUtil
 import com.dzl.duanzil.viewmodel.JokesDetailViewModel
 import com.dzl.duanzil.viewmodel.JokesIntent
 import com.dzl.duanzil.viewmodel.JokesUIState
+import com.google.android.exoplayer2.ExoPlayer
+import com.google.android.exoplayer2.MediaItem
+import com.google.android.exoplayer2.ui.StyledPlayerView
 import timber.log.Timber
 
 class JokesDetailActivity : BaseBindingActivity<ActivityJokesDetailBinding>() {
@@ -44,6 +47,21 @@ class JokesDetailActivity : BaseBindingActivity<ActivityJokesDetailBinding>() {
         }
     }
 
+    private val playerView by lazy {
+        val videoH = if (jokeBean.joke.videoSize.contains(',')) {
+            jokeBean.joke.videoSize.split(',')[1].toInt()
+        } else LinearLayout.LayoutParams.WRAP_CONTENT
+        StyledPlayerView(this).apply {
+            layoutParams = LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                videoH
+            ).apply {
+                gravity = Gravity.CENTER
+            }
+        }
+    }
+    private val player by lazy { ExoPlayer.Builder(this).build() }
+
     private val adapter = JokeCommentAdapter()
     private val adapterHelper by lazy {
         AdapterHelper(binding.refresh, isRefresh = false, isLoadMore = true, loadRefresh = {
@@ -59,6 +77,25 @@ class JokesDetailActivity : BaseBindingActivity<ActivityJokesDetailBinding>() {
         binding.recycler.adapter = adapter
         viewModel.dispatch(JokesIntent.JokesId(168510))
         viewModel.dispatch(JokesIntent.RefreshComment)
+    }
+
+    private fun initImg() {
+        val url = AESUtils.decryptImg(jokeBean.joke.imageUrl)
+        GlideAppUtils.loadImage(this, url, imageView)
+        binding.layout.addView(imageView)
+    }
+
+    private fun initVideo() {
+        playerView.player = player
+
+        playerView
+
+        val url = AESUtils.decryptImg(jokeBean.joke.videoUrl)
+        Timber.e("-- ${jokeBean.joke.videoSize} -------- $url")
+        player.setMediaItem(MediaItem.fromUri(url))
+        player.prepare()
+        binding.layout.addView(playerView)
+        player.play()
     }
 
     override fun listener() {
@@ -106,12 +143,12 @@ class JokesDetailActivity : BaseBindingActivity<ActivityJokesDetailBinding>() {
         if (parPos != -1) {
             val node = adapter.data[parPos]
             (node as? CommentListBean.Comment)?.let {
-                if(it.expanded){
-                    adapter.data[position] = CommentFooterIsOpen(commentId,"展开")
+                if (it.isExpanded) {
+                    adapter.data[position] = CommentFooterIsOpen(commentId, "展开")
                     adapter.notifyItemChanged(position)
                     adapter.collapseAndChild(parPos)
-                }else{
-                    adapter.data[position] = CommentFooterIsOpen(commentId,"折叠")
+                } else {
+                    adapter.data[position] = CommentFooterIsOpen(commentId, "收起")
                     adapter.notifyItemChanged(position)
                     adapter.expandAndChild(parPos)
                 }
@@ -177,11 +214,9 @@ class JokesDetailActivity : BaseBindingActivity<ActivityJokesDetailBinding>() {
 
         binding.layout.removeAllViews()
         when (jokeBean.joke.type) {
-            2 -> {
-                val url = AESUtils.decryptImg(jokeBean.joke.imageUrl)
-                GlideAppUtils.loadImage(this, url, imageView)
-                binding.layout.addView(imageView)
-            }
+            1 -> {}
+            2 -> initImg()
+            else -> initVideo()
         }
 
         GlideAppUtils.loadImageCircleCrop(this, jokeBean.user.avatar, binding.layoutComment.avatar)
@@ -189,4 +224,13 @@ class JokesDetailActivity : BaseBindingActivity<ActivityJokesDetailBinding>() {
         binding.layoutComment.comment.setRadius(ScreenUtil.dp2px(this, 16f))
     }
 
+    override fun onPause() {
+        super.onPause()
+        player.pause()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        player.release()
+    }
 }
