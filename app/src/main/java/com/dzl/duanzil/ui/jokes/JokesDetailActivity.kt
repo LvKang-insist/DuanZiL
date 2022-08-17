@@ -2,10 +2,13 @@ package com.dzl.duanzil.ui.jokes
 
 
 import android.annotation.SuppressLint
+import android.content.res.Configuration
 import android.view.Gravity
 import android.widget.LinearLayout
 import androidx.activity.viewModels
 import androidx.appcompat.widget.AppCompatImageView
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import com.btpj.lib_base.utils.DateUtil
 import com.dzl.duanzil.R
@@ -13,6 +16,7 @@ import com.dzl.duanzil.bean.*
 import com.dzl.duanzil.core.base.BaseBindingActivity
 import com.dzl.duanzil.core.other.AdapterHelper
 import com.dzl.duanzil.databinding.ActivityJokesDetailBinding
+import com.dzl.duanzil.databinding.JokesDetailVideoBinding
 import com.dzl.duanzil.extension.MMkvEnum
 import com.dzl.duanzil.extension.getString
 import com.dzl.duanzil.extension.setRadius
@@ -23,9 +27,10 @@ import com.dzl.duanzil.utils.ScreenUtil
 import com.dzl.duanzil.viewmodel.JokesDetailViewModel
 import com.dzl.duanzil.viewmodel.JokesIntent
 import com.dzl.duanzil.viewmodel.JokesUIState
-import com.google.android.exoplayer2.ExoPlayer
-import com.google.android.exoplayer2.MediaItem
-import com.google.android.exoplayer2.ui.StyledPlayerView
+import com.shuyu.gsyvideoplayer.GSYVideoManager
+import com.shuyu.gsyvideoplayer.builder.GSYVideoOptionBuilder
+import com.shuyu.gsyvideoplayer.listener.GSYSampleCallBack
+import com.shuyu.gsyvideoplayer.utils.OrientationUtils
 import timber.log.Timber
 
 class JokesDetailActivity : BaseBindingActivity<ActivityJokesDetailBinding>() {
@@ -47,20 +52,20 @@ class JokesDetailActivity : BaseBindingActivity<ActivityJokesDetailBinding>() {
         }
     }
 
-    private val playerView by lazy {
-        val videoH = if (jokeBean.joke.videoSize.contains(',')) {
-            jokeBean.joke.videoSize.split(',')[1].toInt()
-        } else LinearLayout.LayoutParams.WRAP_CONTENT
-        StyledPlayerView(this).apply {
-            layoutParams = LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                videoH
-            ).apply {
-                gravity = Gravity.CENTER
-            }
-        }
+    private val playerBinding by lazy {
+        DataBindingUtil.bind<JokesDetailVideoBinding>(
+            layoutInflater.inflate(R.layout.jokes_detail_video, binding.layout, false)
+        )
     }
-    private val player by lazy { ExoPlayer.Builder(this).build() }
+
+    val orientationUtils by lazy {
+        OrientationUtils(
+            this@JokesDetailActivity,
+            playerBinding?.player
+        )
+    }
+//
+//    private val player by lazy { ExoPlayer.Builder(this).build() }
 
     private val adapter = JokeCommentAdapter()
     private val adapterHelper by lazy {
@@ -86,16 +91,58 @@ class JokesDetailActivity : BaseBindingActivity<ActivityJokesDetailBinding>() {
     }
 
     private fun initVideo() {
-        playerView.player = player
+        var videoH = LinearLayout.LayoutParams.WRAP_CONTENT
+        val videoW = LinearLayout.LayoutParams.MATCH_PARENT
 
-        playerView
+        if (jokeBean.joke.videoSize.contains(',')) {
+            val size = jokeBean.joke.videoSize.split(',')
+            val w = size[0].toFloat()
+            val h = size[1].toFloat()
+            val s = ScreenUtil.getScreenWidth(this) / w
+            videoH = (h * s).toInt()
+        }
 
-        val url = AESUtils.decryptImg(jokeBean.joke.videoUrl)
-        Timber.e("-- ${jokeBean.joke.videoSize} -------- $url")
-        player.setMediaItem(MediaItem.fromUri(url))
-        player.prepare()
-        binding.layout.addView(playerView)
-        player.play()
+        playerBinding?.run {
+            val url = AESUtils.decryptImg(jokeBean.joke.videoUrl)
+            Timber.e("-- ${jokeBean.joke.videoSize} -------- $url")
+            player.layoutParams = ConstraintLayout.LayoutParams(videoW, videoH)
+            val gsyVideoOption = GSYVideoOptionBuilder()
+            gsyVideoOption.setIsTouchWiget(true)
+                .setRotateViewAuto(false)
+                .setLockLand(false)
+                .setAutoFullWithSize(true)
+                .setShowFullAnimation(false)
+                .setNeedLockFull(true)
+                .setUrl(url)
+                .setCacheWithPlay(false)
+                .setVideoTitle("测试视频")
+                .setVideoAllCallBack(object : GSYSampleCallBack() {
+                    override fun onPrepared(url: String?, vararg objects: Any?) {
+                        //开始播放了才能旋转和全屏
+                        orientationUtils.isEnable = true;
+                    }
+
+                    override fun onQuitFullscreen(url: String?, vararg objects: Any?) {
+                        Timber.e("***** onQuitFullscreen **** %s", objects[0]);//title
+                        Timber.e("***** onQuitFullscreen **** %s", objects[1]);//当前非全屏player
+                        orientationUtils.backToProtVideo();
+                    }
+                })
+                .setLockClickListener { view, lock ->
+                    //配合下方的onConfigurationChanged
+                    orientationUtils.isEnable = !lock;
+                }
+                .build(player)
+
+            player.fullscreenButton.setOnClickListener {
+                orientationUtils.resolveByClick()
+                //第一个true是否需要隐藏actionbar，第二个true是否需要隐藏statusbar
+                player.startWindowFullscreen(this@JokesDetailActivity, true, true);
+            }
+
+            binding.layout.addView(playerBinding?.root)
+        }
+
     }
 
     override fun listener() {
@@ -224,13 +271,47 @@ class JokesDetailActivity : BaseBindingActivity<ActivityJokesDetailBinding>() {
         binding.layoutComment.comment.setRadius(ScreenUtil.dp2px(this, 16f))
     }
 
+    override fun onBackPressed() {
+        if (jokeBean.joke.type >= 3) {
+            orientationUtils.backToProtVideo()
+            if (GSYVideoManager.backFromWindowFull(this)) return
+        }
+        super.onBackPressed()
+    }
+
     override fun onPause() {
+        if (jokeBean.joke.type >= 3) {
+            playerBinding?.player?.currentPlayer?.onVideoPause()
+        }
         super.onPause()
-        player.pause()
+    }
+
+    override fun onResume() {
+        if (jokeBean.joke.type >= 3) {
+            playerBinding?.player?.currentPlayer?.onVideoResume(false)
+        }
+        super.onResume()
     }
 
     override fun onDestroy() {
+        if (jokeBean.joke.type >= 3) {
+            playerBinding?.player?.currentPlayer?.release()
+            orientationUtils.releaseListener()
+        }
         super.onDestroy()
-        player.release()
+//        player.release()
+    }
+
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
+        if (jokeBean.joke.type >= 3) {
+            playerBinding?.player?.onConfigurationChanged(
+                this,
+                newConfig,
+                orientationUtils,
+                true,
+                true
+            );
+        }
     }
 }

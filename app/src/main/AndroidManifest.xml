@@ -93,6 +93,8 @@
         <activity
             android:name=".ui.jokes.JokesDetailActivity"
             android:exported="false"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|uiMode"
+            android:screenOrientation="portrait"
             android:launchMode="singleTop" />
 
         <activity

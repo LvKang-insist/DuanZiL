@@ -47,6 +47,7 @@
         <entry key="app/src/main/res/layout/home_tab_item_img.xml" value="0.4241645244215938" />
         <entry key="app/src/main/res/layout/home_tab_item_text.xml" value="0.2" />
         <entry key="app/src/main/res/layout/home_tab_item_video.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/jokes_detail_video.xml" value="0.25" />
         <entry key="app/src/main/res/layout/layout_detail_toolbar.xml" value="0.33" />
         <entry key="app/src/main/res/layout/layout_joke_image.xml" value="0.475" />
         <entry key="app/src/main/res/layout/main_navigation_item.xml" value="0.2453125" />
