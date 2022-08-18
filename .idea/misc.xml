@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="../../.gradle/caches/transforms-3/3dad344b5536f415bd20b71c4f40b358/transformed/jetified-gsyVideoPlayer-java-v8.3.3-release-jitpack/res/layout/video_layout_standard.xml" value="0.22" />
         <entry key="../../.gradle/caches/transforms-3/f58210a4f3a94c97c99a579afd1a95bc/transformed/jetified-exoplayer-ui-2.18.1/res/drawable-anydpi-v21/exo_ic_pause_circle_filled.xml" value="0.175" />
         <entry key="../../.gradle/caches/transforms-3/f58210a4f3a94c97c99a579afd1a95bc/transformed/jetified-exoplayer-ui-2.18.1/res/drawable-anydpi-v21/exo_ic_play_circle_filled.xml" value="0.175" />
         <entry key="../../.gradle/caches/transforms-3/f58210a4f3a94c97c99a579afd1a95bc/transformed/jetified-exoplayer-ui-2.18.1/res/layout/exo_styled_player_control_rewind_button.xml" value="0.33177083333333335" />

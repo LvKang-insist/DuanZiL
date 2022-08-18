@@ -115,7 +115,6 @@ class JokesDetailActivity : BaseBindingActivity<ActivityJokesDetailBinding>() {
                 .setNeedLockFull(true)
                 .setUrl(url)
                 .setCacheWithPlay(false)
-                .setVideoTitle("测试视频")
                 .setVideoAllCallBack(object : GSYSampleCallBack() {
                     override fun onPrepared(url: String?, vararg objects: Any?) {
                         //开始播放了才能旋转和全屏
@@ -130,7 +129,7 @@ class JokesDetailActivity : BaseBindingActivity<ActivityJokesDetailBinding>() {
                 })
                 .setLockClickListener { view, lock ->
                     //配合下方的onConfigurationChanged
-                    orientationUtils.isEnable = !lock;
+                    orientationUtils.isEnable = !lock
                 }
                 .build(player)
 
@@ -139,8 +138,8 @@ class JokesDetailActivity : BaseBindingActivity<ActivityJokesDetailBinding>() {
                 //第一个true是否需要隐藏actionbar，第二个true是否需要隐藏statusbar
                 player.startWindowFullscreen(this@JokesDetailActivity, true, true);
             }
-
             binding.layout.addView(playerBinding?.root)
+            GSYVideoManager.instance().releaseMediaPlayer()
         }
 
     }
