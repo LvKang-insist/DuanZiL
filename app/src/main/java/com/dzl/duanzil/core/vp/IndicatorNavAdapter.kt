@@ -23,6 +23,7 @@ class IndicatorNavAdapter(
     private val textSize: Float = 16F,
     private val isIndicator: Boolean = true,
     private val color: Int = R.color.skin_primary,
+    private val unColor: Int =R.color.textColor,
     val onClick: (Int) -> Unit
 ) : CommonNavigatorAdapter() {
 
@@ -32,7 +33,7 @@ class IndicatorNavAdapter(
             context.resources, color, null
         )
         titleView.mNormalColor =
-            ResourcesCompat.getColor(context.resources, R.color.textColor, null)
+            ResourcesCompat.getColor(context.resources, unColor, null)
         titleView.textSize = textSize
         titleView.text = titles[index]
         titleView.setOnClickListener {

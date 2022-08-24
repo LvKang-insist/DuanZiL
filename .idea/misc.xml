@@ -31,29 +31,33 @@
         <entry key="app/src/main/res/layout/activity_jokes_detail.xml" value="0.1814814814814815" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.125" />
+        <entry key="app/src/main/res/layout/activity_release.xml" value="0.43697916666666664" />
         <entry key="app/src/main/res/layout/comment_footer_isopen_item.xml" value="0.25" />
         <entry key="app/src/main/res/layout/comment_footer_item.xml" value="0.67" />
         <entry key="app/src/main/res/layout/comment_footer_more_item.xml" value="0.3055555555555556" />
         <entry key="app/src/main/res/layout/comment_footer_refresh_item.xml" value="0.47604166666666664" />
         <entry key="app/src/main/res/layout/comment_node_item.xml" value="0.5164319248826291" />
         <entry key="app/src/main/res/layout/comment_root_item.xml" value="0.44235924932975873" />
+        <entry key="app/src/main/res/layout/custom_video_layout_standard.xml" value="0.24427083333333333" />
         <entry key="app/src/main/res/layout/exo_player_control_view.xml" value="0.26197916666666665" />
         <entry key="app/src/main/res/layout/exo_styled_player_control_view.xml" value="0.3307291666666667" />
         <entry key="app/src/main/res/layout/frag_home.xml" value="0.42604166666666665" />
         <entry key="app/src/main/res/layout/frag_home_tab.xml" value="0.24074074074074073" />
         <entry key="app/src/main/res/layout/frag_msg.xml" value="0.425" />
         <entry key="app/src/main/res/layout/frag_release.xml" value="0.425" />
+        <entry key="app/src/main/res/layout/frag_select_photo.xml" value="0.43697916666666664" />
         <entry key="app/src/main/res/layout/frag_user.xml" value="0.425" />
         <entry key="app/src/main/res/layout/frag_video.xml" value="0.425" />
         <entry key="app/src/main/res/layout/home_tab_item_img.xml" value="0.4241645244215938" />
         <entry key="app/src/main/res/layout/home_tab_item_text.xml" value="0.2" />
         <entry key="app/src/main/res/layout/home_tab_item_video.xml" value="0.33" />
-        <entry key="app/src/main/res/layout/jokes_detail_video.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/jokes_detail_video.xml" value="0.1" />
         <entry key="app/src/main/res/layout/layout_detail_toolbar.xml" value="0.33" />
         <entry key="app/src/main/res/layout/layout_joke_image.xml" value="0.475" />
         <entry key="app/src/main/res/layout/main_navigation_item.xml" value="0.2453125" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1275" />
         <entry key="app/src/main/res/xml/styles.xml" value="0.22037037037037038" />
+        <entry key="library/camerax/src/main/res/drawable/picture_ic_flash_auto.xml" value="0.239" />
       </map>
     </option>
   </component>

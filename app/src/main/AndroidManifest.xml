@@ -3,8 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.dzl.duanzil">
 
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <!-- 网络相关 -->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -101,6 +103,11 @@
             android:name=".ui.login.LoginActivity"
             android:exported="false"
             android:launchMode="singleTop" />
+
+        <activity
+            android:name=".ui.release.ReleaseActivity"
+            android:exported="false"
+            android:launchMode="singleTop"/>
     </application>
 
 </manifest>

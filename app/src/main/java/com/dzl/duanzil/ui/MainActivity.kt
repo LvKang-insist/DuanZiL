@@ -16,7 +16,6 @@ import com.dzl.duanzil.ui.adapter.MainNavigationAdapter
 import com.dzl.duanzil.ui.adapter.MainNavigationItemClickListener
 import com.dzl.duanzil.ui.home.HomeFragment
 import com.dzl.duanzil.ui.msg.MsgFragment
-import com.dzl.duanzil.ui.release.ReleaseFragment
 import com.dzl.duanzil.ui.user.UserFragment
 import com.dzl.duanzil.ui.video.VideoFragment
 import com.dzl.duanzil.utils.JumpUtils
@@ -77,7 +76,11 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>(), MainNavigationI
     }
 
     override fun onClick(position: Int) {
-        binding.mainViewpager.setCurrentItem(position,false)
+        if (position == 2) {
+            JumpUtils.startReleaseActivity(this)
+            return
+        }
+        binding.mainViewpager.setCurrentItem(position, false)
     }
 
     class PageAdapter(
@@ -91,7 +94,7 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>(), MainNavigationI
             when (position) {
                 0 -> return HomeFragment()
                 1 -> return VideoFragment()
-                2 -> return ReleaseFragment()
+                2 -> return Fragment()
                 3 -> return MsgFragment()
                 4 -> return UserFragment()
             }

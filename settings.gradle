@@ -16,3 +16,4 @@ dependencyResolutionManagement {
 rootProject.name = "DuanZiL"
 include ':app'
 include 'library:base'
+include 'library:camerax'

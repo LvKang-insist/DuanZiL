@@ -4,6 +4,7 @@ package com.dzl.duanzil.ui.jokes
 import android.annotation.SuppressLint
 import android.content.res.Configuration
 import android.view.Gravity
+import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.activity.viewModels
 import androidx.appcompat.widget.AppCompatImageView
@@ -64,8 +65,6 @@ class JokesDetailActivity : BaseBindingActivity<ActivityJokesDetailBinding>() {
             playerBinding?.player
         )
     }
-//
-//    private val player by lazy { ExoPlayer.Builder(this).build() }
 
     private val adapter = JokeCommentAdapter()
     private val adapterHelper by lazy {
@@ -104,16 +103,28 @@ class JokesDetailActivity : BaseBindingActivity<ActivityJokesDetailBinding>() {
 
         playerBinding?.run {
             val url = AESUtils.decryptImg(jokeBean.joke.videoUrl)
+            val thumbUrl = AESUtils.decryptImg(jokeBean.joke.thumbUrl)
             Timber.e("-- ${jokeBean.joke.videoSize} -------- $url")
             player.layoutParams = ConstraintLayout.LayoutParams(videoW, videoH)
+            val thumbImage = AppCompatImageView(this@JokesDetailActivity).apply {
+                layoutParams = LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT,
+                    LinearLayout.LayoutParams.MATCH_PARENT
+                )
+                scaleType = ImageView.ScaleType.CENTER_CROP
+            }
+            GlideAppUtils.loadImage(this@JokesDetailActivity, thumbUrl, thumbImage)
             val gsyVideoOption = GSYVideoOptionBuilder()
             gsyVideoOption.setIsTouchWiget(true)
-                .setRotateViewAuto(false)
+                .setRotateViewAuto(true)
                 .setLockLand(false)
                 .setAutoFullWithSize(true)
                 .setShowFullAnimation(false)
+                .setLooping(true)
                 .setNeedLockFull(true)
                 .setUrl(url)
+                .setThumbImageView(thumbImage)
+                .setVideoTitle(jokeBean.user.nickName)
                 .setCacheWithPlay(false)
                 .setVideoAllCallBack(object : GSYSampleCallBack() {
                     override fun onPrepared(url: String?, vararg objects: Any?) {
@@ -122,24 +133,21 @@ class JokesDetailActivity : BaseBindingActivity<ActivityJokesDetailBinding>() {
                     }
 
                     override fun onQuitFullscreen(url: String?, vararg objects: Any?) {
-                        Timber.e("***** onQuitFullscreen **** %s", objects[0]);//title
-                        Timber.e("***** onQuitFullscreen **** %s", objects[1]);//当前非全屏player
                         orientationUtils.backToProtVideo();
                     }
                 })
-                .setLockClickListener { view, lock ->
+                .setLockClickListener { _, lock ->
                     //配合下方的onConfigurationChanged
                     orientationUtils.isEnable = !lock
                 }
                 .build(player)
-
             player.fullscreenButton.setOnClickListener {
                 orientationUtils.resolveByClick()
                 //第一个true是否需要隐藏actionbar，第二个true是否需要隐藏statusbar
                 player.startWindowFullscreen(this@JokesDetailActivity, true, true);
             }
+            player.startPlayLogic()
             binding.layout.addView(playerBinding?.root)
-            GSYVideoManager.instance().releaseMediaPlayer()
         }
 
     }
@@ -298,7 +306,6 @@ class JokesDetailActivity : BaseBindingActivity<ActivityJokesDetailBinding>() {
             orientationUtils.releaseListener()
         }
         super.onDestroy()
-//        player.release()
     }
 
     override fun onConfigurationChanged(newConfig: Configuration) {

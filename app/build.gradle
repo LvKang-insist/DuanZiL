@@ -98,6 +98,7 @@ dependencies {
     implementation "androidx.activity:activity-ktx:1.5.1"
     implementation "androidx.fragment:fragment-ktx:1.5.1"
     implementation project(':library:base')
+    implementation project(':library:camerax')
 
 
     implementation "androidx.recyclerview:recyclerview:1.2.1"
@@ -106,6 +107,9 @@ dependencies {
 
     //沉浸式
     implementation 'com.gyf.immersionbar:immersionbar:3.0.0'
+    implementation "com.gyf.immersionbar:immersionbar-components:3.0.0"
+    implementation "com.gyf.immersionbar:immersionbar-ktx:3.0.0"
+
 
     // 日志打印框架：https://github.com/JakeWharton/timber
     implementation 'com.jakewharton.timber:timber:4.7.1'
@@ -155,6 +159,21 @@ dependencies {
 
     //完整版引入
     implementation 'com.github.CarGuo.GSYVideoPlayer:GSYVideoPlayer:v8.3.3-release-jitpack'
+
+    // PictureSelector 基础 (必须)
+    implementation 'io.github.lucksiege:pictureselector:v3.0.5'
+
+    // 图片压缩 (按需引入)
+    implementation 'io.github.lucksiege:compress:v3.0.5'
+
+    // 图片裁剪 (按需引入)
+    implementation 'io.github.lucksiege:ucrop:v3.0.5'
+
+    //视频压缩
+    implementation 'com.github.yellowcath:VideoProcessor:2.4.2'
+
+    //权限处理
+    implementation 'com.guolindev.permissionx:permissionx:1.6.4'
 
     // 多语种：https://github.com/getActivity/MultiLanguages
     // 悬浮窗：https://github.com/getActivity/XToast
