@@ -1,6 +1,9 @@
 package com.dzl.duanzil.ui.video
 
 import android.view.View
+import android.widget.ImageView
+import android.widget.LinearLayout
+import androidx.appcompat.widget.AppCompatImageView
 import androidx.databinding.DataBindingUtil
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
@@ -8,9 +11,8 @@ import com.dzl.duanzil.R
 import com.dzl.duanzil.bean.VideoListBean
 import com.dzl.duanzil.databinding.FragVideoItemBinding
 import com.dzl.duanzil.utils.AESUtils
-import com.shuyu.gsyvideoplayer.GSYVideoManager
+import com.dzl.duanzil.utils.GlideAppUtils
 import com.shuyu.gsyvideoplayer.builder.GSYVideoOptionBuilder
-import com.shuyu.gsyvideoplayer.listener.GSYSampleCallBack
 import com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer
 
 /**
@@ -40,7 +42,7 @@ class VideoAdapter :
     }
 
 
-    class VideoAdapterHolder(view: View) :
+    class VideoAdapterHolder(val view: View) :
         BaseViewHolder(view) {
 
         val binding = DataBindingUtil.bind<FragVideoItemBinding>(view)!!
@@ -56,20 +58,26 @@ class VideoAdapter :
             val url = AESUtils.decryptImg(bean.joke.videoUrl)
             val thumbUrl = AESUtils.decryptImg(bean.joke.thumbUrl)
 
-            //防止错位，离开释放
-            //gsyVideoPlayer.initUIState();
+            val thumbImage = AppCompatImageView(view.context).apply {
+                layoutParams = LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT,
+                    LinearLayout.LayoutParams.MATCH_PARENT
+                )
+                scaleType = ImageView.ScaleType.CENTER_CROP
+            }
+            GlideAppUtils.loadImage(thumbImage.context, thumbUrl, thumbImage)
 
-            //防止错位，离开释放
-            //gsyVideoPlayer.initUIState();
+
             gsyVideoOptionBuilder
-                .setIsTouchWiget(false) //.setThumbImageView(imageView)
+                .setIsTouchWiget(false)
                 .setUrl(url)
                 .setVideoTitle("")
                 .setCacheWithPlay(false)
-                .setRotateViewAuto(true)
+                .setRotateViewAuto(false)
                 .setLockLand(true)
                 .setPlayTag(TAG)
                 .setShowFullAnimation(true)
+                .setThumbImageView(thumbImage)
                 .setNeedLockFull(true)
                 .setPlayPosition(position)
                 .build(binding.player)
@@ -77,14 +85,12 @@ class VideoAdapter :
             //增加title
             binding.player.titleTextView.visibility = View.GONE
 
-
             //设置返回键
             binding.player.backButton.visibility = View.GONE
 
-
-            //设置全屏按键功能
-            binding.player.fullscreenButton
-                .setOnClickListener { resolveFullBtn(binding.player) }
+//            //设置全屏按键功能
+//            binding.player.fullscreenButton
+//                .setOnClickListener { resolveFullBtn(binding.player) }
         }
 
 
