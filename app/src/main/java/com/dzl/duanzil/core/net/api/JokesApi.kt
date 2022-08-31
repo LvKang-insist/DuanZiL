@@ -1,9 +1,6 @@
 package com.dzl.duanzil.core.net.api
 
-import com.dzl.duanzil.bean.CommentListBean
-import com.dzl.duanzil.bean.CommentListItemBean
-import com.dzl.duanzil.bean.JokeBean
-import com.dzl.duanzil.bean.JokeListBean
+import com.dzl.duanzil.bean.*
 import com.dzl.duanzil.core.net.ResponseData
 import retrofit2.http.Body
 import retrofit2.http.Field
@@ -45,4 +42,7 @@ interface JokesApi {
     ): ResponseData<List<CommentListItemBean>>
 
 
+    /** 获取子评论列表 */
+    @POST("douyin/list")
+    suspend fun videoList(): ResponseData<VideoListBean>
 }

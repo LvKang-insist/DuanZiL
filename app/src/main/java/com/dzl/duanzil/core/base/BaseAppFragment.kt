@@ -24,7 +24,8 @@ abstract class BaseAppFragment : BaseFragment() {
         if (isStatusBarEnable()) {
             ImmersionBar
                 .with(this)
-                .statusBarColor(R.color.transparent)
+                .statusBarColor(statusBarColor())
+                .fitsSystemWindows(fitsSystemWindows())
                 .statusBarDarkFont(isStatusDarkFont())
                 .init()
             getTitleBar()?.let {
@@ -44,4 +45,9 @@ abstract class BaseAppFragment : BaseFragment() {
     open fun isStatusDarkFont(): Boolean = true
 
     open fun getTitleBar(): View? = null
+
+    open fun fitsSystemWindows(): Boolean = false
+
+    /** 状态栏颜色 */
+    open fun statusBarColor(): Int = R.color.transparent
 }

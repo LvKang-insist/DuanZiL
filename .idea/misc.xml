@@ -48,6 +48,7 @@
         <entry key="app/src/main/res/layout/frag_select_photo.xml" value="0.43697916666666664" />
         <entry key="app/src/main/res/layout/frag_user.xml" value="0.425" />
         <entry key="app/src/main/res/layout/frag_video.xml" value="0.425" />
+        <entry key="app/src/main/res/layout/frag_video_item.xml" value="0.4359375" />
         <entry key="app/src/main/res/layout/home_tab_item_img.xml" value="0.4241645244215938" />
         <entry key="app/src/main/res/layout/home_tab_item_text.xml" value="0.2" />
         <entry key="app/src/main/res/layout/home_tab_item_video.xml" value="0.33" />
