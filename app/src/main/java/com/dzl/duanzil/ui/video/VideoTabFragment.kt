@@ -90,17 +90,20 @@ class VideoTabFragment : BaseBindingFragment<FragVideoTabItemBinding>() {
 //            Timber.e("22222222222")
 //            binding.player.onVideoResume()
 //        }
-        binding.player.seekOnStart = seekOnStart
+//        binding.player.seekOnStart = seekOnStart
         binding.player.startPlayLogic()
+        Timber.e("  $seekOnStart")
+        if(seekOnStart >0){
+//            binding.player.proce
+        }
         super.onResume()
 
     }
 
     override fun onPause() {
         super.onPause()
-        seekOnStart = binding.player.seekOnStart
+        seekOnStart = binding.player.currentPositionWhenPlaying
         binding.player.onVideoPause()
-        Timber.e("  $seekOnStart")
     }
 
 
