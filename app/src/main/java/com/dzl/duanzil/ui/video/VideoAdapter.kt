@@ -1,19 +1,11 @@
 package com.dzl.duanzil.ui.video
 
-import android.view.View
-import android.widget.ImageView
-import android.widget.LinearLayout
-import androidx.appcompat.widget.AppCompatImageView
-import androidx.databinding.DataBindingUtil
-import com.chad.library.adapter.base.BaseQuickAdapter
-import com.chad.library.adapter.base.viewholder.BaseViewHolder
-import com.dzl.duanzil.R
+import android.os.Bundle
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.lifecycle.Lifecycle
+import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.dzl.duanzil.bean.VideoListBean
-import com.dzl.duanzil.databinding.FragVideoItemBinding
-import com.dzl.duanzil.utils.AESUtils
-import com.dzl.duanzil.utils.GlideAppUtils
-import com.shuyu.gsyvideoplayer.builder.GSYVideoOptionBuilder
-import com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer
 
 /**
  * @name VideoAdapter
@@ -22,6 +14,32 @@ import com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer
  * @time 2022/08/25 15:02
  * @description
  */
+
+
+class VideoAdapter(fragmentManager: FragmentManager, lifecycle: Lifecycle) :
+    FragmentStateAdapter(fragmentManager, lifecycle) {
+
+    companion object {
+        const val TAG = "video_adapter"
+    }
+
+    var list: ArrayList<VideoListBean.VideoListBeanItem> = arrayListOf()
+
+    override fun getItemCount(): Int = list.size
+
+    override fun createFragment(position: Int): Fragment {
+        val bundle = Bundle().apply {
+            putSerializable("bean", list[position])
+            putInt("position", position)
+        }
+        val fragment = VideoTabFragment()
+        fragment.arguments = bundle
+        return fragment
+    }
+
+}
+
+/*
 class VideoAdapter :
     BaseQuickAdapter<VideoListBean.VideoListBeanItem, VideoAdapter.VideoAdapterHolder>(R.layout.frag_video_item) {
 
@@ -94,9 +112,11 @@ class VideoAdapter :
         }
 
 
-        /**
-         * 全屏幕按键处理
-         */
+        */
+/**
+ * 全屏幕按键处理
+ *//*
+
         private fun resolveFullBtn(standardGSYVideoPlayer: StandardGSYVideoPlayer) {
             standardGSYVideoPlayer.startWindowFullscreen(binding.player.context, true, true)
         }
@@ -107,4 +127,4 @@ class VideoAdapter :
         }
     }
 
-}
+}*/

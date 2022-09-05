@@ -1,5 +1,7 @@
 package com.dzl.duanzil.bean
 
+import java.io.Serializable
+
 /**
  * @name VideoListBean
  * @package com.dzl.duanzil.bean
@@ -7,12 +9,12 @@ package com.dzl.duanzil.bean
  * @time 2022/08/25 15:44
  * @description
  */
-class VideoListBean : ArrayList<VideoListBean.VideoListBeanItem>(){
+class VideoListBean : ArrayList<VideoListBean.VideoListBeanItem>() {
     data class VideoListBeanItem(
         val info: Info,
         val joke: Joke,
         val user: User
-    ) {
+    ) : Serializable {
         data class Info(
             val commentNum: Int,
             val disLikeNum: Int,
@@ -21,7 +23,7 @@ class VideoListBean : ArrayList<VideoListBean.VideoListBeanItem>(){
             val isUnlike: Boolean,
             val likeNum: Int,
             val shareNum: Int
-        )
+        ) : Serializable
 
         data class Joke(
             val addTime: String,
@@ -39,13 +41,13 @@ class VideoListBean : ArrayList<VideoListBean.VideoListBeanItem>(){
             val videoSize: String,
             val videoTime: Int,
             val videoUrl: String
-        )
+        ) : Serializable
 
         data class User(
             val avatar: String,
             val nickName: String,
             val signature: String,
             val userId: Int
-        )
+        ) : Serializable
     }
 }

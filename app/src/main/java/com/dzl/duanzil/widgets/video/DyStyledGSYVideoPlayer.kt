@@ -12,6 +12,7 @@ import androidx.core.view.isVisible
 import com.dzl.duanzil.R
 import com.hjq.toast.ToastUtils
 import com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer
+import timber.log.Timber
 
 /**
  * @name CustomStyledPlayerControlView

@@ -17,7 +17,7 @@ abstract class BaseFragment : Fragment() {
 
     lateinit var rootView: View
 
-    private var isLazyLoad = false
+     var isLazyLoad = false
 
     override fun onCreateView(
         inflater: LayoutInflater,
