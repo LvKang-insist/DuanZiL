@@ -39,7 +39,7 @@
         <entry key="app/src/main/res/layout/comment_node_item.xml" value="0.5164319248826291" />
         <entry key="app/src/main/res/layout/comment_root_item.xml" value="0.44235924932975873" />
         <entry key="app/src/main/res/layout/custom_video_layout_standard.xml" value="0.24427083333333333" />
-        <entry key="app/src/main/res/layout/dy_video_layout_standard.xml" value="0.4770173646578141" />
+        <entry key="app/src/main/res/layout/dy_video_layout_standard.xml" value="0.22" />
         <entry key="app/src/main/res/layout/exo_player_control_view.xml" value="0.26197916666666665" />
         <entry key="app/src/main/res/layout/exo_styled_player_control_view.xml" value="0.3307291666666667" />
         <entry key="app/src/main/res/layout/frag_home.xml" value="0.42604166666666665" />
@@ -50,6 +50,7 @@
         <entry key="app/src/main/res/layout/frag_user.xml" value="0.425" />
         <entry key="app/src/main/res/layout/frag_video.xml" value="0.425" />
         <entry key="app/src/main/res/layout/frag_video_item.xml" value="0.4359375" />
+        <entry key="app/src/main/res/layout/frag_video_tab_item.xml" value="0.3453703703703704" />
         <entry key="app/src/main/res/layout/home_tab_item_img.xml" value="0.4241645244215938" />
         <entry key="app/src/main/res/layout/home_tab_item_text.xml" value="0.2" />
         <entry key="app/src/main/res/layout/home_tab_item_video.xml" value="0.33" />

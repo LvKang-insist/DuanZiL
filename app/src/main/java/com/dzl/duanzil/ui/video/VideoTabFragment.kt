@@ -2,15 +2,11 @@ package com.dzl.duanzil.ui.video
 
 import android.os.Bundle
 import android.view.View
-import android.widget.ImageView
-import android.widget.LinearLayout
-import androidx.appcompat.widget.AppCompatImageView
 import com.dzl.duanzil.R
 import com.dzl.duanzil.bean.VideoListBean
 import com.dzl.duanzil.core.base.BaseBindingFragment
 import com.dzl.duanzil.databinding.FragVideoTabItemBinding
 import com.dzl.duanzil.utils.AESUtils
-import com.dzl.duanzil.utils.GlideAppUtils
 import com.shuyu.gsyvideoplayer.builder.GSYVideoOptionBuilder
 import timber.log.Timber
 
@@ -29,16 +25,6 @@ class VideoTabFragment : BaseBindingFragment<FragVideoTabItemBinding>() {
     val url by lazy { AESUtils.decryptImg(bean.joke.videoUrl) }
     val thumbUrl by lazy { AESUtils.decryptImg(bean.joke.thumbUrl) }
 
-    val thumbImage by lazy {
-        AppCompatImageView(requireContext()).apply {
-            layoutParams = LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.MATCH_PARENT
-            )
-            scaleType = ImageView.ScaleType.CENTER_CROP
-        }
-    }
-
     val gsyVideoOptionBuilder = GSYVideoOptionBuilder()
 
     var seekOnStart = 0L
@@ -47,8 +33,8 @@ class VideoTabFragment : BaseBindingFragment<FragVideoTabItemBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Timber.e("------------- >")
-        GlideAppUtils.loadImage(thumbImage.context, thumbUrl, thumbImage)
+
+        binding.player.loadCoverImage(thumbUrl, R.drawable.like_on_ic)
         gsyVideoOptionBuilder
             .setIsTouchWiget(false)
             .setUrl(url)
@@ -58,7 +44,7 @@ class VideoTabFragment : BaseBindingFragment<FragVideoTabItemBinding>() {
             .setLockLand(true)
             .setPlayTag(VideoAdapter.TAG)
             .setShowFullAnimation(true)
-            .setThumbImageView(thumbImage)
+//            .setThumbImageView(thumbImage)
             .setNeedLockFull(true)
             .setPlayPosition(position)
             .build(binding.player)
@@ -77,25 +63,18 @@ class VideoTabFragment : BaseBindingFragment<FragVideoTabItemBinding>() {
     }
 
     override fun initView() {
-
+        Timber.e("------------- >1  ${thumbUrl}")
+//        binding.player.setShowPauseCover(true)
+        binding.player.startPlayLogic()
     }
 
 
     override fun onResume() {
-//        binding.player.seekOnStart
-//        if (!isLazyLoad) {
-//            Timber.e("111111111111")
-//            binding.player.startPlayLogic()
-//        } else {
-//            Timber.e("22222222222")
-//            binding.player.onVideoResume()
-//        }
-//        binding.player.seekOnStart = seekOnStart
-        binding.player.startPlayLogic()
-        Timber.e("  $seekOnStart")
+        Timber.e("------------- >2")
         if(seekOnStart >0){
-//            binding.player.proce
+            binding.player.seekOnStart = seekOnStart
         }
+        binding.player.startPlayLogic()
         super.onResume()
 
     }

@@ -21,8 +21,18 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
+        android:gravity="center"
         android:background="#000000"
-        android:scaleType="fitCenter" />
+        android:scaleType="fitCenter">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/thumbImage"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop" />
+
+
+    </RelativeLayout>
 
     <!--    <LinearLayout-->
     <!--        android:id="@+id/layout_bottom"-->
@@ -117,13 +127,12 @@
             android:textSize="18sp" />
     </LinearLayout>
 
-    <moe.codeest.enviews.ENDownloadView
-        android:id="@+id/loading"
-        android:layout_width="28dp"
-        android:layout_height="28dp"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:visibility="invisible" />
+    <!--    <moe.codeest.enviews.ENDownloadView-->
+    <!--        android:id="@+id/loading"-->
+    <!--        android:layout_width="28dp"-->
+    <!--        android:layout_height="28dp"-->
+    <!--        android:layout_centerInParent="true"-->
+    <!--        android:visibility="invisible" />-->
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/dy_play"
