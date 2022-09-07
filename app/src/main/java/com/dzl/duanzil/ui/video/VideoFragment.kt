@@ -51,6 +51,11 @@ class VideoFragment : BaseBindingFragment<FragVideoBinding>() {
         })
         binding.page.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
+                val videoSize = adapter.list.size
+                if (position > videoSize - 5) {
+                    viewModel.dispatch(VideoIntent.LoadVideoList)
+                }
+
 //                val playPosition = GSYVideoManager.instance().playPosition
 //                Timber.e("$playPosition       $position")
 //                //大于0表示有播放

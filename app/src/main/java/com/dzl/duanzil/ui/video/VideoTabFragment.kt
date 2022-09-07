@@ -1,14 +1,16 @@
 package com.dzl.duanzil.ui.video
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
+import androidx.core.content.res.ResourcesCompat
 import com.dzl.duanzil.R
 import com.dzl.duanzil.bean.VideoListBean
 import com.dzl.duanzil.core.base.BaseBindingFragment
 import com.dzl.duanzil.databinding.FragVideoTabItemBinding
 import com.dzl.duanzil.utils.AESUtils
+import com.dzl.duanzil.utils.GlideAppUtils
 import com.shuyu.gsyvideoplayer.builder.GSYVideoOptionBuilder
-import timber.log.Timber
 
 /**
  * @name VideoTabFragment
@@ -46,6 +48,7 @@ class VideoTabFragment : BaseBindingFragment<FragVideoTabItemBinding>() {
             .setShowFullAnimation(true)
 //            .setThumbImageView(thumbImage)
             .setNeedLockFull(true)
+            .setLooping(true)
             .setPlayPosition(position)
             .build(binding.player)
 
@@ -55,22 +58,26 @@ class VideoTabFragment : BaseBindingFragment<FragVideoTabItemBinding>() {
         //设置返回键
         binding.player.backButton.visibility = View.GONE
 
-//        binding.player.setVideoAllCallBack(object : VideoAllCallBack)
-
-//            //设置全屏按键功能
-//            binding.player.fullscreenButton
-//                .setOnClickListener { resolveFullBtn(binding.player) }
     }
 
+    @SuppressLint("SetTextI18n")
     override fun initView() {
-        Timber.e("------------- >1  ${thumbUrl}")
-//        binding.player.setShowPauseCover(true)
-        binding.player.startPlayLogic()
+        binding.player.isShowPauseCover = true
+        binding.name.isSelected = true
+        binding.name.text = "@${bean.user.nickName} 发布的视频"
+        binding.content.text = bean.joke.content
+
+        GlideAppUtils.loadImageCropCircleWithBorder(
+            requireContext(),
+            bean.user.avatar,
+            binding.avatar,
+            5,
+            ResourcesCompat.getColor(resources, R.color.white, null)
+        )
     }
 
 
     override fun onResume() {
-        Timber.e("------------- >2")
         if(seekOnStart >0){
             binding.player.seekOnStart = seekOnStart
         }

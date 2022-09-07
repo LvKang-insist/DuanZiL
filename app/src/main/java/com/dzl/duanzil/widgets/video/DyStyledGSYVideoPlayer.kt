@@ -5,14 +5,12 @@ import android.content.res.Configuration
 import android.graphics.Point
 import android.util.AttributeSet
 import android.view.*
-import android.widget.RelativeLayout
 import android.widget.SeekBar
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.core.view.isVisible
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.dzl.duanzil.R
-import com.hjq.toast.ToastUtils
 import com.shuyu.gsyvideoplayer.utils.CommonUtil
 import com.shuyu.gsyvideoplayer.utils.Debuger
 import com.shuyu.gsyvideoplayer.utils.GSYVideoType
@@ -44,16 +42,17 @@ class DyStyledGSYVideoPlayer : StandardGSYVideoPlayer {
         dyPlay = findViewById(R.id.dy_play)
         mCoverImage = findViewById(R.id.thumbImage)
 
-
         if (mThumbImageViewLayout != null &&
             (mCurrentState == -1 || mCurrentState == CURRENT_STATE_NORMAL || mCurrentState == CURRENT_STATE_ERROR)
         ) {
             mThumbImageViewLayout.visibility = VISIBLE
         }
+    }
 
 
+    init {
         gestureDetector = GestureDetector(
-            getContext().applicationContext,
+            context.applicationContext,
             object : GestureDetector.SimpleOnGestureListener() {
                 override fun onDoubleTap(e: MotionEvent): Boolean {
                     touchDoubleUp(e)
@@ -61,23 +60,14 @@ class DyStyledGSYVideoPlayer : StandardGSYVideoPlayer {
                 }
 
                 override fun onSingleTapUp(e: MotionEvent?): Boolean {
-                    ToastUtils.show("hh")
-                    if (dyPlay.isVisible) {
-                        dyPlay.visibility = View.GONE
-                        onVideoResume()
-                    } else {
-                        dyPlay.visibility = View.VISIBLE
-                        onVideoPause()
-                    }
+                    setPlayIconState(dyPlay.isVisible)
                     return super.onSingleTapUp(e)
                 }
 
                 override fun onSingleTapConfirmed(e: MotionEvent): Boolean {
-                    ToastUtils.show("222")
 //                    if (!mChangePosition && !mChangeVolume && !mBrightness) {
 //                        onClickUiToggle(e)
 //                    }
-
                     return super.onSingleTapConfirmed(e)
                 }
 
@@ -88,6 +78,29 @@ class DyStyledGSYVideoPlayer : StandardGSYVideoPlayer {
             })
     }
 
+    fun setPlayIconState(visibility: Boolean) {
+        if (visibility) {
+            dyPlay.visibility = View.GONE
+            onVideoResume()
+        } else {
+            dyPlay.visibility = View.VISIBLE
+            onVideoPause()
+        }
+    }
+
+    fun setPlayIconVisible(visibility: Int) {
+        dyPlay.visibility = visibility
+    }
+
+    override fun startPlayLogic() {
+        setPlayIconVisible(View.GONE)
+        super.startPlayLogic()
+    }
+
+    override fun onVideoPause() {
+        setPlayIconVisible(View.VISIBLE)
+        super.onVideoPause()
+    }
 
     override fun getLayoutId(): Int {
         return R.layout.dy_video_layout_standard
@@ -103,7 +116,7 @@ class DyStyledGSYVideoPlayer : StandardGSYVideoPlayer {
                     .frame(0)
                     .centerCrop()
                     .error(res)
-                    .placeholder(res)
+//                    .placeholder(res)
             )
             .load(url)
             .into(mCoverImage)
