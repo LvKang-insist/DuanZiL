@@ -7,7 +7,7 @@ import com.chad.library.adapter.base.provider.BaseNodeProvider
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.dzl.duanzil.R
 import com.dzl.duanzil.bean.*
-import com.dzl.duanzil.utils.GlideAppUtils
+import com.dzl.duanzil.utils.GlideUtil
 
 /**
  * @name JokeCommentAdapter
@@ -49,7 +49,7 @@ private class CommentRootProvider : BaseNodeProvider() {
     override fun convert(helper: BaseViewHolder, item: BaseNode) {
         (item as? CommentListBean.Comment)?.let {
             helper.setText(R.id.name, it.commentUser.nickname)
-            GlideAppUtils.loadImageCircleCrop(
+            GlideUtil.loadCircleImage(
                 context, item.commentUser.userAvatar,
                 helper.getView(R.id.avatar)
             )
@@ -82,7 +82,7 @@ private class CommentNodeProvider : BaseNodeProvider() {
     override fun convert(helper: BaseViewHolder, item: BaseNode) {
         (item as? CommentListItemBean)?.let {
             helper.setText(R.id.name, it.commentUser.nickname)
-            GlideAppUtils.loadImageCircleCrop(
+            GlideUtil.loadCircleImage(
                 context, item.commentUser.userAvatar,
                 helper.getView(R.id.avatar)
             )

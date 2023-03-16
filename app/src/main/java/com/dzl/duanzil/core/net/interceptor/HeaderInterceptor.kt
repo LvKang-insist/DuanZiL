@@ -1,5 +1,6 @@
 package com.dzl.duanzil.core.net.interceptor
 
+import android.util.Log
 import com.dzl.duanzil.extension.MMkvEnum
 import com.dzl.duanzil.extension.getString
 import com.dzl.duanzil.utils.AppUtil
@@ -20,10 +21,9 @@ class HeaderInterceptor : Interceptor {
             .addHeader("device", AppUtil.model)
             .addHeader("app", "${AppUtil.appVersionName};${AppUtil.sDKVersionName}")
             .addHeader("channel", "cretin_open_api")
-            .addHeader("project_token", "AEC592A8D7CE4B1EBEE8D3DA2A89BCC0")
+            .addHeader("project_token", "79B892CF778044B3866B0AD04B44B8A2")
             .addHeader("token", MMkvEnum.TOKEN.getString())
             .build()
-
         return chain.proceed(request)
     }
 

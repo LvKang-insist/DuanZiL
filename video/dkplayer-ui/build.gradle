@@ -1,0 +1,16 @@
+apply plugin: 'com.android.library'
+apply from : '../../common.gradle'
+
+android {
+
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    api project(':video:dkplayer-java')
+}
+
+ext {
+    PUBLISH_ARTIFACT_ID = 'dkplayer-ui'
+}
+

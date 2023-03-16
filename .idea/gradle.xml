@@ -15,6 +15,13 @@
             <option value="$PROJECT_DIR$/library" />
             <option value="$PROJECT_DIR$/library/base" />
             <option value="$PROJECT_DIR$/library/camerax" />
+            <option value="$PROJECT_DIR$/video" />
+            <option value="$PROJECT_DIR$/video/dkplayer-java" />
+            <option value="$PROJECT_DIR$/video/dkplayer-players" />
+            <option value="$PROJECT_DIR$/video/dkplayer-players/exo" />
+            <option value="$PROJECT_DIR$/video/dkplayer-players/ijk" />
+            <option value="$PROJECT_DIR$/video/dkplayer-ui" />
+            <option value="$PROJECT_DIR$/video/dkplayer-videocache" />
           </set>
         </option>
       </GradleProjectSettings>

@@ -175,6 +175,9 @@ dependencies {
     //权限处理
     implementation 'com.guolindev.permissionx:permissionx:1.6.4'
 
+    //Banner
+    implementation 'io.github.youth5201314:banner:2.2.2'
+
     // 多语种：https://github.com/getActivity/MultiLanguages
     // 悬浮窗：https://github.com/getActivity/XToast
     // 日志输出：https://github.com/getActivity/Logcat

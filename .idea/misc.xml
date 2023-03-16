@@ -9,6 +9,7 @@
         <entry key="../../.gradle/caches/transforms-3/f58210a4f3a94c97c99a579afd1a95bc/transformed/jetified-exoplayer-ui-2.18.1/res/layout/exo_styled_player_control_rewind_button.xml" value="0.33177083333333335" />
         <entry key="../../.gradle/caches/transforms-3/f58210a4f3a94c97c99a579afd1a95bc/transformed/jetified-exoplayer-ui-2.18.1/res/layout/exo_styled_player_control_view.xml" value="0.33177083333333335" />
         <entry key="app/src/main/res/drawable/ic__4gf_playcircle.xml" value="0.205" />
+        <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.2125" />
         <entry key="app/src/main/res/drawable/main_home_off_ic.xml" value="0.222" />
         <entry key="app/src/main/res/drawable/main_home_on_ic.xml" value="0.222" />
         <entry key="app/src/main/res/drawable/main_home_selector.xml" value="0.222" />

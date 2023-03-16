@@ -14,6 +14,9 @@
     <color name="textWhiteColor">#FFFFFFFF</color>
     <color name="textMinorColor">#FF666F83</color>
 
+    <!-- EditText 相关-->
+    <color name="EditBgColor">#FFEEEEEE</color>
+
     <!--    未选中-->
     <color name="unSelector">#FFa4a4a4</color>
 

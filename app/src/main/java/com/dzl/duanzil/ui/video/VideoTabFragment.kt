@@ -9,7 +9,7 @@ import com.dzl.duanzil.bean.VideoListBean
 import com.dzl.duanzil.core.base.BaseBindingFragment
 import com.dzl.duanzil.databinding.FragVideoTabItemBinding
 import com.dzl.duanzil.utils.AESUtils
-import com.dzl.duanzil.utils.GlideAppUtils
+import com.dzl.duanzil.utils.GlideUtil
 import com.shuyu.gsyvideoplayer.builder.GSYVideoOptionBuilder
 
 /**
@@ -67,7 +67,7 @@ class VideoTabFragment : BaseBindingFragment<FragVideoTabItemBinding>() {
         binding.name.text = "@${bean.user.nickName} 发布的视频"
         binding.content.text = bean.joke.content
 
-        GlideAppUtils.loadImageCropCircleWithBorder(
+        GlideUtil.loadImageCropCircleWithBorder(
             requireContext(),
             bean.user.avatar,
             binding.avatar,

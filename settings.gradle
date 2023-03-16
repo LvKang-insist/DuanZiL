@@ -17,3 +17,8 @@ rootProject.name = "DuanZiL"
 include ':app'
 include 'library:base'
 include 'library:camerax'
+include 'video:dkplayer-videocache'
+include 'video:dkplayer-java'
+include 'video:dkplayer-ui'
+include 'video:dkplayer-players:exo'
+include 'video:dkplayer-players:ijk'

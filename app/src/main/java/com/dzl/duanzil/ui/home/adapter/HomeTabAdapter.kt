@@ -11,7 +11,8 @@ import com.dzl.duanzil.databinding.HomeTabItemImgBinding
 import com.dzl.duanzil.databinding.HomeTabItemTextBinding
 import com.dzl.duanzil.databinding.HomeTabItemVideoBinding
 import com.dzl.duanzil.utils.AESUtils
-import com.dzl.duanzil.utils.GlideAppUtils
+import com.dzl.duanzil.utils.GlideUtil
+import timber.log.Timber
 
 /**
  * @name HomeTabAdapter
@@ -48,7 +49,7 @@ private class TextItemProvider : BaseItemProvider<JokeListBean.JokeListBeanItem>
         DataBindingUtil.bind<HomeTabItemTextBinding>(helper.itemView)?.let {
             it.content.text = item.joke.content
             it.likeCount.text = item.info.likeNum.toString()
-            GlideAppUtils.loadImageCircleCrop(context, item.user.avatar, it.avatar)
+            GlideUtil.loadCircleImage(context, item.user.avatar, it.avatar)
             it.name.text = item.user.nickName
             it.like.isSelected = item.info.isLike
         }
@@ -66,10 +67,10 @@ private class ImgItemProvider : BaseItemProvider<JokeListBean.JokeListBeanItem>(
         DataBindingUtil.bind<HomeTabItemImgBinding>(helper.itemView)?.let {
             var img = item.joke.imageUrl.split(',')[0]
             img = AESUtils.decryptImg(img)
-            GlideAppUtils.loadImageRound(context, img, it.image, 16)
+            GlideUtil.loadAnimRoundImage(context, img, it.image, 16)
             it.content.text = item.joke.content
             it.likeCount.text = item.info.likeNum.toString()
-            GlideAppUtils.loadImageCircleCrop(context, item.user.avatar, it.avatar)
+            GlideUtil.loadCircleImage(context, item.user.avatar, it.avatar)
             it.name.text = item.user.nickName
             it.like.isSelected = item.info.isLike
         }
@@ -87,13 +88,14 @@ private class VideoItemProvider : BaseItemProvider<JokeListBean.JokeListBeanItem
     override fun convert(helper: BaseViewHolder, item: JokeListBean.JokeListBeanItem) {
         DataBindingUtil.bind<HomeTabItemVideoBinding>(helper.itemView)?.let {
             var img = item.joke.thumbUrl
-            if(img.contains( "ftp://")){
+            Timber.e("img = $img")
+            if (img.contains("ftp://")) {
                 img = AESUtils.decryptImg(img)
             }
-            GlideAppUtils.loadImageRound(context, img, it.image, 16)
+            GlideUtil.loadAnimRoundImage(context, img, it.image, 16)
             it.content.text = item.joke.content
             it.likeCount.text = item.info.likeNum.toString()
-            GlideAppUtils.loadImageCircleCrop(context, item.user.avatar, it.avatar)
+            GlideUtil.loadCircleImage(context, item.user.avatar, it.avatar)
             it.name.text = item.user.nickName
             it.like.isSelected = item.info.isLike
         }

@@ -1,0 +1,27 @@
+apply plugin: 'com.android.library'
+apply from: '../../../common.gradle'
+
+
+android {
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+var exoPlayerVersion = '2.18.1'
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation project(':video:dkplayer-java')
+    api "com.google.android.exoplayer:exoplayer-core:$exoPlayerVersion"
+    api "com.google.android.exoplayer:exoplayer-dash:$exoPlayerVersion"
+    api "com.google.android.exoplayer:exoplayer-hls:$exoPlayerVersion"
+    api "com.google.android.exoplayer:exoplayer-rtsp:$exoPlayerVersion"
+    api "com.google.android.exoplayer:extension-rtmp:$exoPlayerVersion"
+}
+
+ext {
+    PUBLISH_ARTIFACT_ID = 'player-exo'
+}

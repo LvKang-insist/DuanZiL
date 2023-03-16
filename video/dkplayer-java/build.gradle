@@ -1,0 +1,11 @@
+apply plugin: 'com.android.library'
+apply from : '../../common.gradle'
+
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+}
+
+ext {
+    PUBLISH_ARTIFACT_ID = 'dkplayer-java'
+}

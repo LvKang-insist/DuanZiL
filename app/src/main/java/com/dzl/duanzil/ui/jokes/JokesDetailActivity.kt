@@ -23,7 +23,7 @@ import com.dzl.duanzil.extension.getString
 import com.dzl.duanzil.extension.setRadius
 import com.dzl.duanzil.ui.adapter.JokeCommentAdapter
 import com.dzl.duanzil.utils.AESUtils
-import com.dzl.duanzil.utils.GlideAppUtils
+import com.dzl.duanzil.utils.GlideUtil
 import com.dzl.duanzil.utils.ScreenUtil
 import com.dzl.duanzil.viewmodel.JokesDetailViewModel
 import com.dzl.duanzil.viewmodel.JokesIntent
@@ -85,7 +85,7 @@ class JokesDetailActivity : BaseBindingActivity<ActivityJokesDetailBinding>() {
 
     private fun initImg() {
         val url = AESUtils.decryptImg(jokeBean.joke.imageUrl)
-        GlideAppUtils.loadImage(this, url, imageView)
+        GlideUtil.loadImage(this, url, imageView)
         binding.layout.addView(imageView)
     }
 
@@ -113,7 +113,7 @@ class JokesDetailActivity : BaseBindingActivity<ActivityJokesDetailBinding>() {
                 )
                 scaleType = ImageView.ScaleType.CENTER_CROP
             }
-            GlideAppUtils.loadImage(this@JokesDetailActivity, thumbUrl, thumbImage)
+            GlideUtil.loadImage(this@JokesDetailActivity, thumbUrl, thumbImage)
             val gsyVideoOption = GSYVideoOptionBuilder()
             gsyVideoOption.setIsTouchWiget(true)
                 .setRotateViewAuto(true)
@@ -248,7 +248,7 @@ class JokesDetailActivity : BaseBindingActivity<ActivityJokesDetailBinding>() {
     override fun initData() {
 
         binding.toolbar.name.text = jokeBean.user.nickName
-        GlideAppUtils.loadImageCircleCrop(this, jokeBean.user.avatar, binding.toolbar.avatar)
+        GlideUtil.loadCircleImage(this, jokeBean.user.avatar, binding.toolbar.avatar)
         if (jokeBean.info.isAttention) {
             binding.toolbar.attention.run {
                 text = "已关注"
@@ -273,7 +273,7 @@ class JokesDetailActivity : BaseBindingActivity<ActivityJokesDetailBinding>() {
             else -> initVideo()
         }
 
-        GlideAppUtils.loadImageCircleCrop(this, jokeBean.user.avatar, binding.layoutComment.avatar)
+        GlideUtil.loadCircleImage(this, jokeBean.user.avatar, binding.layoutComment.avatar)
         binding.layoutComment.commentCount.text = "共 ${jokeBean.info.commentNum} 条评论"
         binding.layoutComment.comment.setRadius(ScreenUtil.dp2px(this, 16f))
     }
