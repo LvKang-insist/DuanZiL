@@ -40,39 +40,17 @@
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 
-        <com.dzl.duanzil.widgets.MyScrollView
+        <net.lucode.hackware.magicindicator.MagicIndicator
+            android:id="@+id/indicator"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="@dimen/dp_50"
+            android:background="@color/white" />
 
-            <androidx.appcompat.widget.LinearLayoutCompat
-                android:layout_width="match_parent"
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/viewpager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
 
-                android:layout_height="@dimen/dp_140"
-                android:background="@color/skin_primary">
-
-                <com.youth.banner.Banner
-                    android:id="@+id/banner"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_130"
-                    android:layout_marginStart="@dimen/dp_16"
-                    android:layout_marginEnd="@dimen/dp_16" />
-
-            </androidx.appcompat.widget.LinearLayoutCompat>
-
-            <net.lucode.hackware.magicindicator.MagicIndicator
-                android:id="@+id/indicator"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_50"
-                android:background="@color/white" />
-
-            <androidx.viewpager2.widget.ViewPager2
-                android:id="@+id/viewpager"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-
-
-        </com.dzl.duanzil.widgets.MyScrollView>
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 </layout>

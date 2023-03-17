@@ -44,7 +44,7 @@ class VideoTabFragment : BaseBindingFragment<FragVideoTabItemBinding>() {
             .setCacheWithPlay(false)
             .setRotateViewAuto(false)
             .setLockLand(true)
-            .setPlayTag(VideoAdapter.TAG)
+
             .setShowFullAnimation(true)
 //            .setThumbImageView(thumbImage)
             .setNeedLockFull(true)

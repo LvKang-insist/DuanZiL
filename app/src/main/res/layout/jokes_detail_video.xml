@@ -11,13 +11,13 @@
         android:layout_height="wrap_content">
 
 
-        <com.dzl.duanzil.widgets.video.CustomStyledGSYVideoPlayer
-            android:id="@+id/player"
+        <xyz.doikki.videoplayer.player.VideoView
+            android:id="@+id/videoView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_height="wrap_content"/>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

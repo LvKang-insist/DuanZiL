@@ -82,23 +82,23 @@ class HomeFragment : BaseBindingFragment<FragHomeBinding>() {
         list.add("https://img0.baidu.com/it/u=3496194910,739642242&fm=253&fmt=auto&app=120&f=JPEG?w=1200&h=800")
         list.add("https://img1.baidu.com/it/u=648682337,227066329&fm=253&fmt=auto?w=800&h=500")
         list.add("https://img2.baidu.com/it/u=516577964,3587447629&fm=253&fmt=auto&app=138&f=JPEG?w=750&h=500")
-        binding.banner.apply {
-            addPageTransformer(ScaleInTransformer())
-            addPageTransformer(AlphaPageTransformer())
-            setAdapter(object : BannerImageAdapter<String>(list) {
-                override fun onBindView(
-                    holder: BannerImageHolder?, data: String?, position: Int, size: Int
-                ) {
-                    holder?.run {
-//                        Glide.with(holder.imageView).load(data).into(holder.imageView)
-                        GlideUtil.loadRoundImage(binding.banner.context, data, holder.imageView,8)
-                    }
-                }
-
-            })
-            addBannerLifecycleObserver(viewLifecycleOwner)
-            setIndicator(CircleIndicator(requireContext()))
-        }
+//        binding.banner.apply {
+//            addPageTransformer(ScaleInTransformer())
+//            addPageTransformer(AlphaPageTransformer())
+//            setAdapter(object : BannerImageAdapter<String>(list) {
+//                override fun onBindView(
+//                    holder: BannerImageHolder?, data: String?, position: Int, size: Int
+//                ) {
+//                    holder?.run {
+////                        Glide.with(holder.imageView).load(data).into(holder.imageView)
+//                        GlideUtil.loadRoundImage(binding.banner.context, data, holder.imageView,8)
+//                    }
+//                }
+//
+//            })
+//            addBannerLifecycleObserver(viewLifecycleOwner)
+//            setIndicator(CircleIndicator(requireContext()))
+//        }
     }
 
 }

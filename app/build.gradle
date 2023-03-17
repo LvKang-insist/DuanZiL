@@ -99,6 +99,11 @@ dependencies {
     implementation "androidx.fragment:fragment-ktx:1.5.1"
     implementation project(':library:base')
     implementation project(':library:camerax')
+    implementation project(':video:dkplayer-java')
+    implementation project(':video:dkplayer-ui')
+    implementation project(':video:dkplayer-videocache')
+    implementation project(':video:dkplayer-players:exo')
+    implementation project(':video:dkplayer-players:ijk')
 
 
     implementation "androidx.recyclerview:recyclerview:1.2.1"

@@ -1,11 +1,16 @@
 package com.dzl.duanzil.ui.video
 
-import android.os.Bundle
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
-import androidx.lifecycle.Lifecycle
-import androidx.viewpager2.adapter.FragmentStateAdapter
+import android.view.View
+import android.widget.FrameLayout
+import androidx.appcompat.widget.AppCompatImageView
+import com.bumptech.glide.Glide
+import com.chad.library.adapter.base.BaseQuickAdapter
+import com.chad.library.adapter.base.viewholder.BaseViewHolder
+import com.dzl.duanzil.R
 import com.dzl.duanzil.bean.VideoListBean
+import com.dzl.duanzil.utils.AESUtils
+import com.dzl.duanzil.utils.cache.PreloadManager
+import com.dzl.duanzil.widgets.component.TikTokView
 
 /**
  * @name VideoAdapter
@@ -16,115 +21,39 @@ import com.dzl.duanzil.bean.VideoListBean
  */
 
 
-class VideoAdapter(fragmentManager: FragmentManager, lifecycle: Lifecycle) :
-    FragmentStateAdapter(fragmentManager, lifecycle) {
-
-    companion object {
-        const val TAG = "video_adapter"
-    }
-
-    var list: ArrayList<VideoListBean.VideoListBeanItem> = arrayListOf()
-
-    override fun getItemCount(): Int = list.size
-
-    override fun createFragment(position: Int): Fragment {
-        val bundle = Bundle().apply {
-            putSerializable("bean", list[position])
-            putInt("position", position)
-        }
-        val fragment = VideoTabFragment()
-        fragment.arguments = bundle
-        return fragment
-    }
-
-}
-
-/*
 class VideoAdapter :
-    BaseQuickAdapter<VideoListBean.VideoListBeanItem, VideoAdapter.VideoAdapterHolder>(R.layout.frag_video_item) {
+    BaseQuickAdapter<VideoListBean.VideoListBeanItem, VideoAdapterHolder>(R.layout.frag_video_item) {
 
 
     override fun convert(holder: VideoAdapterHolder, item: VideoListBean.VideoListBeanItem) {
-        holder.onBind(holder.adapterPosition, item)
+        val playUrl = AESUtils.decryptImg(item.joke.videoUrl)
+        PreloadManager.getInstance(holder.view.context)
+            .addPreloadTask(playUrl, holder.adapterPosition)
 
-//        DataBindingUtil.bind<FragVideoItemBinding>(holder.itemView)?.run {
-//
-//            player.setUpLazy(url, true, null, null, "")
-//            player.titleTextView.visibility = View.GONE
-//            player.backButton.visibility = View.GONE
-//            player.playTag = TAG
-//            player.playPosition = holder.adapterPosition
-//            player.setIsTouchWiget(false)
-//            player.isShowFullAnimation = true
-//        }true
+        Glide.with(context)
+            .load(item.joke.thumbUrl)
+            .placeholder(android.R.color.white)
+            .into(holder.thumb)
+
+        holder.view.tag = holder
     }
 
-
-    class VideoAdapterHolder(val view: View) :
-        BaseViewHolder(view) {
-
-        val binding = DataBindingUtil.bind<FragVideoItemBinding>(view)!!
-        val gsyVideoOptionBuilder = GSYVideoOptionBuilder()
-
-        companion object {
-            const val TAG = "VIDEO_ADAPTER"
-        }
-
-
-        fun onBind(position: Int, bean: VideoListBean.VideoListBeanItem) {
-
-            val url = AESUtils.decryptImg(bean.joke.videoUrl)
-            val thumbUrl = AESUtils.decryptImg(bean.joke.thumbUrl)
-
-            val thumbImage = AppCompatImageView(view.context).apply {
-                layoutParams = LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.MATCH_PARENT,
-                    LinearLayout.LayoutParams.MATCH_PARENT
-                )
-                scaleType = ImageView.ScaleType.CENTER_CROP
-            }
-            GlideAppUtils.loadImage(thumbImage.context, thumbUrl, thumbImage)
-
-
-            gsyVideoOptionBuilder
-                .setIsTouchWiget(false)
-                .setUrl(url)
-                .setVideoTitle("")
-                .setCacheWithPlay(false)
-                .setRotateViewAuto(false)
-                .setLockLand(true)
-                .setPlayTag(TAG)
-                .setShowFullAnimation(true)
-                .setThumbImageView(thumbImage)
-                .setNeedLockFull(true)
-                .setPlayPosition(position)
-                .build(binding.player)
-
-            //增加title
-            binding.player.titleTextView.visibility = View.GONE
-
-            //设置返回键
-            binding.player.backButton.visibility = View.GONE
-
-//            //设置全屏按键功能
-//            binding.player.fullscreenButton
-//                .setOnClickListener { resolveFullBtn(binding.player) }
-        }
-
-
-        */
-/**
- * 全屏幕按键处理
- *//*
-
-        private fun resolveFullBtn(standardGSYVideoPlayer: StandardGSYVideoPlayer) {
-            standardGSYVideoPlayer.startWindowFullscreen(binding.player.context, true, true)
-        }
-
-
-        fun getPlayer(): StandardGSYVideoPlayer {
-            return binding.player
-        }
+    //该方法在view被回收时调用
+    override fun onViewDetachedFromWindow(holder: VideoAdapterHolder) {
+        super.onViewDetachedFromWindow(holder)
+        val item = data[holder.adapterPosition]
+        //移除预加载任务
+        val playUrl = AESUtils.decryptImg(item.joke.videoUrl)
+        PreloadManager.getInstance(holder.view.context).removePreloadTask(playUrl)
     }
 
-}*/
+    override fun getItemCount(): Int = data.size
+
+
+}
+
+class VideoAdapterHolder(val view: View) : BaseViewHolder(view) {
+    val tiktok: TikTokView by lazy { view.findViewById<TikTokView>(R.id.tiktok_View) }
+    val container: FrameLayout by lazy { view.findViewById<FrameLayout>(R.id.container) }
+    val thumb: AppCompatImageView by lazy { view.findViewById<AppCompatImageView>(R.id.thumb) }
+}

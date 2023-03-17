@@ -2,13 +2,11 @@ package com.dzl.duanzil.ui.jokes
 
 
 import android.annotation.SuppressLint
-import android.content.res.Configuration
 import android.view.Gravity
 import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.activity.viewModels
 import androidx.appcompat.widget.AppCompatImageView
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import com.btpj.lib_base.utils.DateUtil
@@ -28,11 +26,10 @@ import com.dzl.duanzil.utils.ScreenUtil
 import com.dzl.duanzil.viewmodel.JokesDetailViewModel
 import com.dzl.duanzil.viewmodel.JokesIntent
 import com.dzl.duanzil.viewmodel.JokesUIState
-import com.shuyu.gsyvideoplayer.GSYVideoManager
-import com.shuyu.gsyvideoplayer.builder.GSYVideoOptionBuilder
-import com.shuyu.gsyvideoplayer.listener.GSYSampleCallBack
-import com.shuyu.gsyvideoplayer.utils.OrientationUtils
 import timber.log.Timber
+import xyz.doikki.videocontroller.StandardVideoController
+import xyz.doikki.videocontroller.component.*
+import xyz.doikki.videoplayer.player.VideoView
 
 class JokesDetailActivity : BaseBindingActivity<ActivityJokesDetailBinding>() {
 
@@ -59,12 +56,7 @@ class JokesDetailActivity : BaseBindingActivity<ActivityJokesDetailBinding>() {
         )
     }
 
-    val orientationUtils by lazy {
-        OrientationUtils(
-            this@JokesDetailActivity,
-            playerBinding?.player
-        )
-    }
+
 
     private val adapter = JokeCommentAdapter()
     private val adapterHelper by lazy {
@@ -102,54 +94,44 @@ class JokesDetailActivity : BaseBindingActivity<ActivityJokesDetailBinding>() {
         }
 
         playerBinding?.run {
+            videoView.layoutParams = LinearLayout.LayoutParams(videoW, videoH)
             val url = AESUtils.decryptImg(jokeBean.joke.videoUrl)
-            val thumbUrl = AESUtils.decryptImg(jokeBean.joke.thumbUrl)
-            Timber.e("-- ${jokeBean.joke.videoSize} -------- $url")
-            player.layoutParams = ConstraintLayout.LayoutParams(videoW, videoH)
-            val thumbImage = AppCompatImageView(this@JokesDetailActivity).apply {
-                layoutParams = LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.MATCH_PARENT,
-                    LinearLayout.LayoutParams.MATCH_PARENT
-                )
-                scaleType = ImageView.ScaleType.CENTER_CROP
-            }
-            GlideUtil.loadImage(this@JokesDetailActivity, thumbUrl, thumbImage)
-            val gsyVideoOption = GSYVideoOptionBuilder()
-            gsyVideoOption.setIsTouchWiget(true)
-                .setRotateViewAuto(true)
-                .setLockLand(false)
-                .setAutoFullWithSize(true)
-                .setShowFullAnimation(false)
-                .setLooping(true)
-                .setNeedLockFull(true)
-                .setUrl(url)
-                .setThumbImageView(thumbImage)
-                .setVideoTitle(jokeBean.user.nickName)
-                .setCacheWithPlay(false)
-                .setVideoAllCallBack(object : GSYSampleCallBack() {
-                    override fun onPrepared(url: String?, vararg objects: Any?) {
-                        //开始播放了才能旋转和全屏
-                        orientationUtils.isEnable = true;
-                    }
-
-                    override fun onQuitFullscreen(url: String?, vararg objects: Any?) {
-                        orientationUtils.backToProtVideo();
-                    }
-                })
-                .setLockClickListener { _, lock ->
-                    //配合下方的onConfigurationChanged
-                    orientationUtils.isEnable = !lock
-                }
-                .build(player)
-            player.fullscreenButton.setOnClickListener {
-                orientationUtils.resolveByClick()
-                //第一个true是否需要隐藏actionbar，第二个true是否需要隐藏statusbar
-                player.startWindowFullscreen(this@JokesDetailActivity, true, true);
-            }
-            player.startPlayLogic()
+            setPlayer(videoView, url)
             binding.layout.addView(playerBinding?.root)
         }
 
+    }
+
+    private fun setPlayer(videoView: VideoView, url: String) {
+        val controller = StandardVideoController(this)
+        controller.setEnableOrientation(false)
+        //准备播放界面
+        val prepareView = PrepareView(this)
+        prepareView.setClickStart()
+        val thumb = prepareView.findViewById<ImageView>(R.id.thumb)
+        val thumbUrl = AESUtils.decryptImg(jokeBean.joke.thumbUrl)
+        GlideUtil.loadImage(this, thumbUrl, thumb)
+        controller.addControlComponent(prepareView)
+        //自动完成播放界面
+        controller.addControlComponent(CompleteView(this))
+        //错误界面
+        controller.addControlComponent(ErrorView(this))
+        //标题
+        val titleView = TitleView(this)
+        titleView.setTitle(jokeBean.joke.imageUrl)
+        controller.addControlComponent(titleView)
+        //控制条
+        val vodControllerView = VodControlView(this)
+//        vodControllerView.showBottomProgress(false)
+        controller.addControlComponent(vodControllerView)
+        //手势控制
+        val gestureController = GestureView(this)
+        controller.addControlComponent(gestureController)
+        //设置控制器
+        videoView.setVideoController(controller)
+        videoView.setUrl(url)
+        videoView.setLooping(true)
+        videoView.start()
     }
 
     override fun listener() {
@@ -280,44 +262,38 @@ class JokesDetailActivity : BaseBindingActivity<ActivityJokesDetailBinding>() {
 
     override fun onBackPressed() {
         if (jokeBean.joke.type >= 3) {
-            orientationUtils.backToProtVideo()
-            if (GSYVideoManager.backFromWindowFull(this)) return
+            if (playerBinding?.videoView == null || !playerBinding!!.videoView.onBackPressed()) {
+                super.onBackPressed()
+            }
+        } else {
+            super.onBackPressed()
         }
-        super.onBackPressed()
     }
 
     override fun onPause() {
         if (jokeBean.joke.type >= 3) {
-            playerBinding?.player?.currentPlayer?.onVideoPause()
+            //正在缓冲时，释放资源
+            if (playerBinding?.videoView?.currentPlayState == VideoView.STATE_PREPARING) {
+                playerBinding?.videoView?.release()
+            } else {
+                playerBinding?.videoView?.pause()
+            }
         }
         super.onPause()
     }
 
     override fun onResume() {
         if (jokeBean.joke.type >= 3) {
-            playerBinding?.player?.currentPlayer?.onVideoResume(false)
+            playerBinding?.videoView?.resume()
         }
         super.onResume()
     }
 
     override fun onDestroy() {
         if (jokeBean.joke.type >= 3) {
-            playerBinding?.player?.currentPlayer?.release()
-            orientationUtils.releaseListener()
+            playerBinding?.videoView?.release()
         }
         super.onDestroy()
     }
 
-    override fun onConfigurationChanged(newConfig: Configuration) {
-        super.onConfigurationChanged(newConfig)
-        if (jokeBean.joke.type >= 3) {
-            playerBinding?.player?.onConfigurationChanged(
-                this,
-                newConfig,
-                orientationUtils,
-                true,
-                true
-            );
-        }
-    }
 }

@@ -38,8 +38,8 @@ class HomeTabFragment : BaseBindingFragment<FragHomeTabBinding>() {
     val adapterHelper by lazy {
         AdapterHelper(
             binding.refresh,
-            isLoadMore = false,
-            isRefresh = false,
+            isLoadMore = true,
+            isRefresh = true,
             refresh = {
                 viewModel.dispatch(HomeTabViewAction.RefreshList)
             },
