@@ -80,7 +80,7 @@ public class PreloadManager {
     /**
      * 判断该播放地址是否已经预加载
      */
-    public boolean isPreloaded(String rawUrl) {
+    private boolean isPreloaded(String rawUrl) {
         //先判断是否有缓存文件，如果已经存在缓存文件，并且其大小大于1KB，则表示已经预加载完成了
         File cacheFile = mHttpProxyCacheServer.getCacheFile(rawUrl);
         if (cacheFile.exists()) {
