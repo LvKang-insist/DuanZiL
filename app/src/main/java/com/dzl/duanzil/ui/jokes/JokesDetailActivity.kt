@@ -108,7 +108,7 @@ class JokesDetailActivity : BaseBindingActivity<ActivityJokesDetailBinding>() {
         //准备播放界面
         val prepareView = PrepareView(this)
         prepareView.setClickStart()
-        val thumb = prepareView.findViewById<ImageView>(R.id.thumb)
+        val thumb = prepareView.findViewById<ImageView>(xyz.doikki.videocontroller.R.id.thumb)
         val thumbUrl = AESUtils.decryptImg(jokeBean.joke.thumbUrl)
         GlideUtil.loadImage(this, thumbUrl, thumb)
         controller.addControlComponent(prepareView)

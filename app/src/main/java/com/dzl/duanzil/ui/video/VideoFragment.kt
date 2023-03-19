@@ -47,6 +47,9 @@ class VideoFragment : BaseBindingFragment<FragVideoBinding>() {
     override fun initView() {
 
         viewModel.dispatch(VideoIntent.LoadVideoList)
+        initVideoView()
+        initViewPager()
+
     }
 
 

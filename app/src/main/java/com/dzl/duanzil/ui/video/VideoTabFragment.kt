@@ -10,7 +10,6 @@ import com.dzl.duanzil.core.base.BaseBindingFragment
 import com.dzl.duanzil.databinding.FragVideoTabItemBinding
 import com.dzl.duanzil.utils.AESUtils
 import com.dzl.duanzil.utils.GlideUtil
-import com.shuyu.gsyvideoplayer.builder.GSYVideoOptionBuilder
 
 /**
  * @name VideoTabFragment
@@ -27,7 +26,6 @@ class VideoTabFragment : BaseBindingFragment<FragVideoTabItemBinding>() {
     val url by lazy { AESUtils.decryptImg(bean.joke.videoUrl) }
     val thumbUrl by lazy { AESUtils.decryptImg(bean.joke.thumbUrl) }
 
-    val gsyVideoOptionBuilder = GSYVideoOptionBuilder()
 
     var seekOnStart = 0L
 
@@ -36,33 +34,14 @@ class VideoTabFragment : BaseBindingFragment<FragVideoTabItemBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.player.loadCoverImage(thumbUrl, R.drawable.like_on_ic)
-        gsyVideoOptionBuilder
-            .setIsTouchWiget(false)
-            .setUrl(url)
-            .setVideoTitle("")
-            .setCacheWithPlay(false)
-            .setRotateViewAuto(false)
-            .setLockLand(true)
 
-            .setShowFullAnimation(true)
-//            .setThumbImageView(thumbImage)
-            .setNeedLockFull(true)
-            .setLooping(true)
-            .setPlayPosition(position)
-            .build(binding.player)
 
-        //增加title
-        binding.player.titleTextView.visibility = View.GONE
-
-        //设置返回键
-        binding.player.backButton.visibility = View.GONE
 
     }
 
     @SuppressLint("SetTextI18n")
     override fun initView() {
-        binding.player.isShowPauseCover = true
+
         binding.name.isSelected = true
         binding.name.text = "@${bean.user.nickName} 发布的视频"
         binding.content.text = bean.joke.content
@@ -76,21 +55,6 @@ class VideoTabFragment : BaseBindingFragment<FragVideoTabItemBinding>() {
         )
     }
 
-
-    override fun onResume() {
-        if(seekOnStart >0){
-            binding.player.seekOnStart = seekOnStart
-        }
-        binding.player.startPlayLogic()
-        super.onResume()
-
-    }
-
-    override fun onPause() {
-        super.onPause()
-        seekOnStart = binding.player.currentPositionWhenPlaying
-        binding.player.onVideoPause()
-    }
 
 
 }

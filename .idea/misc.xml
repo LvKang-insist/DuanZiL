@@ -8,8 +8,12 @@
         <entry key="../../.gradle/caches/transforms-3/f58210a4f3a94c97c99a579afd1a95bc/transformed/jetified-exoplayer-ui-2.18.1/res/drawable-anydpi-v21/exo_ic_play_circle_filled.xml" value="0.175" />
         <entry key="../../.gradle/caches/transforms-3/f58210a4f3a94c97c99a579afd1a95bc/transformed/jetified-exoplayer-ui-2.18.1/res/layout/exo_styled_player_control_rewind_button.xml" value="0.33177083333333335" />
         <entry key="../../.gradle/caches/transforms-3/f58210a4f3a94c97c99a579afd1a95bc/transformed/jetified-exoplayer-ui-2.18.1/res/layout/exo_styled_player_control_view.xml" value="0.33177083333333335" />
+        <entry key="..\:/android/project/DuanZiL/app/src/main/res/layout/activity_main.xml" value="0.18177083333333333" />
+        <entry key="..\:/android/project/DuanZiL/app/src/main/res/layout/custom_video_layout_standard.xml" value="0.18177083333333333" />
+        <entry key="..\:/android/project/DuanZiL/app/src/main/res/layout/dy_video_layout_standard.xml" value="0.18177083333333333" />
+        <entry key="..\:/android/project/DuanZiL/app/src/main/res/layout/frag_video_tab_item.xml" value="0.18177083333333333" />
+        <entry key="..\:/android/project/DuanZiL/video/dkplayer-ui/src/main/res/layout/dkplayer_layout_prepare_view.xml" value="0.18177083333333333" />
         <entry key="app/src/main/res/drawable/ic__4gf_playcircle.xml" value="0.205" />
-        <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.2125" />
         <entry key="app/src/main/res/drawable/main_home_off_ic.xml" value="0.222" />
         <entry key="app/src/main/res/drawable/main_home_on_ic.xml" value="0.222" />
         <entry key="app/src/main/res/drawable/main_home_selector.xml" value="0.222" />
@@ -65,7 +69,7 @@
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

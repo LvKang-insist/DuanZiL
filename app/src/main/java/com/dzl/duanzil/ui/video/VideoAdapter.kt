@@ -31,7 +31,7 @@ class VideoAdapter :
             .addPreloadTask(playUrl, holder.adapterPosition)
 
         Glide.with(context)
-            .load(item.joke.thumbUrl)
+            .load(AESUtils.decryptImg(item.joke.thumbUrl))
             .placeholder(android.R.color.white)
             .into(holder.thumb)
 
@@ -55,5 +55,5 @@ class VideoAdapter :
 class VideoAdapterHolder(val view: View) : BaseViewHolder(view) {
     val tiktok: TikTokView by lazy { view.findViewById<TikTokView>(R.id.tiktok_View) }
     val container: FrameLayout by lazy { view.findViewById<FrameLayout>(R.id.container) }
-    val thumb: AppCompatImageView by lazy { view.findViewById<AppCompatImageView>(R.id.thumb) }
+    val thumb: AppCompatImageView by lazy { tiktok.findViewById(R.id.iv_thumb)}
 }

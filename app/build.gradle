@@ -162,8 +162,6 @@ dependencies {
     //嵌套滚动容器
     implementation 'com.github.donkingliang:ConsecutiveScroller:4.6.1'
 
-    //完整版引入
-    implementation 'com.github.CarGuo.GSYVideoPlayer:GSYVideoPlayer:v8.3.4-release-jitpack'
 
     // PictureSelector 基础 (必须)
     implementation 'io.github.lucksiege:pictureselector:v3.0.5'
