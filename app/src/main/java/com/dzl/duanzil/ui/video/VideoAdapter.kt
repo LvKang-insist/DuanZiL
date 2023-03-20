@@ -1,16 +1,23 @@
 package com.dzl.duanzil.ui.video
 
+import android.annotation.SuppressLint
+import android.view.Gravity
 import android.view.View
 import android.widget.FrameLayout
+import android.widget.LinearLayout
 import androidx.appcompat.widget.AppCompatImageView
+import androidx.core.content.res.ResourcesCompat
+import androidx.databinding.DataBindingUtil
 import com.bumptech.glide.Glide
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.dzl.duanzil.R
 import com.dzl.duanzil.bean.VideoListBean
+import com.dzl.duanzil.databinding.FragVideoItemBinding
 import com.dzl.duanzil.utils.AESUtils
+import com.dzl.duanzil.utils.GlideUtil
 import com.dzl.duanzil.utils.cache.PreloadManager
-import com.dzl.duanzil.widgets.component.TikTokView
+import timber.log.Timber
 
 /**
  * @name VideoAdapter
@@ -24,17 +31,28 @@ import com.dzl.duanzil.widgets.component.TikTokView
 class VideoAdapter :
     BaseQuickAdapter<VideoListBean.VideoListBeanItem, VideoAdapterHolder>(R.layout.frag_video_item) {
 
-
+    @SuppressLint("SetTextI18n")
     override fun convert(holder: VideoAdapterHolder, item: VideoListBean.VideoListBeanItem) {
         val playUrl = AESUtils.decryptImg(item.joke.videoUrl)
+        Timber.e("playUrl = $playUrl")
         PreloadManager.getInstance(holder.view.context)
             .addPreloadTask(playUrl, holder.adapterPosition)
-
-        Glide.with(context)
-            .load(AESUtils.decryptImg(item.joke.thumbUrl))
-            .placeholder(android.R.color.white)
-            .into(holder.thumb)
-
+        holder.thumb?.run {
+            val thumbUrl = AESUtils.decryptImg(item.joke.thumbUrl)
+            Glide.with(context)
+                .load(thumbUrl)
+                .placeholder(R.color.black)
+                .into(this)
+        }
+        holder.binding?.run {
+            name.isSelected = true
+            name.text = "@${item.user.nickName} 发布的视频"
+            content.text = item.joke.content
+            GlideUtil.loadImageCropCircleWithBorder(
+                context, item.user.avatar, avatar, 5,
+                ResourcesCompat.getColor(context.resources, R.color.white, null)
+            )
+        }
         holder.view.tag = holder
     }
 
@@ -53,7 +71,6 @@ class VideoAdapter :
 }
 
 class VideoAdapterHolder(val view: View) : BaseViewHolder(view) {
-    val tiktok: TikTokView by lazy { view.findViewById<TikTokView>(R.id.tiktok_View) }
-    val container: FrameLayout by lazy { view.findViewById<FrameLayout>(R.id.container) }
-    val thumb: AppCompatImageView by lazy { tiktok.findViewById(R.id.iv_thumb)}
+    val binding by lazy { DataBindingUtil.bind<FragVideoItemBinding>(view) }
+    val thumb by lazy { binding?.tiktokView?.findViewById<AppCompatImageView>(R.id.iv_thumb) }
 }

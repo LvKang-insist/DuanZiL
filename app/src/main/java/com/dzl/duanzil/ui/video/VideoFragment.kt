@@ -7,12 +7,14 @@ import androidx.viewpager2.widget.ViewPager2
 import com.dzl.duanzil.R
 import com.dzl.duanzil.core.base.BaseBindingFragment
 import com.dzl.duanzil.databinding.FragVideoBinding
+import com.dzl.duanzil.extension.removeViewFormParent
 import com.dzl.duanzil.utils.AESUtils
 import com.dzl.duanzil.utils.cache.PreloadManager
 import com.dzl.duanzil.viewmodel.video.VideoIntent
 import com.dzl.duanzil.viewmodel.video.VideoViewModel
 import com.dzl.duanzil.widgets.controller.TikTokController
 import com.dzl.duanzil.widgets.render.TikTokRenderViewFactory
+import timber.log.Timber
 import xyz.doikki.videoplayer.player.VideoView
 
 /**
@@ -116,11 +118,12 @@ class VideoFragment : BaseBindingFragment<FragVideoBinding>() {
             val holder = itemView.tag as VideoAdapterHolder
             if (holder.adapterPosition == position) {
                 videoView.release()
+                videoView.removeViewFormParent()
                 val bean = adapter.data[position]
                 val playUrl = AESUtils.decryptImg(bean.joke.videoUrl)
                 videoView.setUrl(playUrl)
-                controller.addControlComponent(holder.tiktok, true)
-                holder.container.addView(videoView)
+                controller.addControlComponent(holder.binding?.tiktokView, true)
+                holder.binding?.container?.addView(videoView, 0)
                 videoView.start()
                 curPos = position
                 break
@@ -134,6 +137,12 @@ class VideoFragment : BaseBindingFragment<FragVideoBinding>() {
                 val size = adapter.data.size
                 adapter.data.addAll(this)
                 adapter.notifyItemRangeChanged(size, adapter.data.size - size)
+                Timber.e("size = $size ,   ${adapter.data.size}")
+                if (size == 0) {
+                    binding.page.post {
+                        startPlay(0)
+                    }
+                }
             }
         })
     }

@@ -1,15 +1,173 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-    android:id="@+id/container"
-    android:layout_width="match_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_height="match_parent">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <data>
 
-    <com.dzl.duanzil.widgets.component.TikTokView
-        android:id="@+id/tiktok_View"
+    </data>
+
+    <FrameLayout
+        android:id="@+id/container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent">
 
-</FrameLayout>
+
+        <com.dzl.duanzil.widgets.component.TikTokView
+            android:id="@+id/tiktok_View"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.dzl.duanzil.widgets.text.ExpandableTextView
+                android:id="@+id/content"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/dp_100"
+                android:layout_marginBottom="@dimen/dp_8"
+                android:textColor="@color/textWhiteColor"
+                android:textSize="@dimen/sp_16"
+                app:layout_constraintBottom_toTopOf="@id/name"
+                app:layout_constraintLeft_toLeftOf="@id/name"
+                app:layout_constraintRight_toRightOf="parent" />
+
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_12"
+                android:layout_marginEnd="@dimen/dp_180"
+                android:layout_marginBottom="@dimen/dp_16"
+                android:ellipsize="marquee"
+                android:singleLine="true"
+                android:textColor="@color/textWhiteColor"
+                android:marqueeRepeatLimit="marquee_forever"
+                android:textSize="@dimen/sp_14"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent" />
+
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/music_img"
+                android:layout_width="@dimen/dp_40"
+                android:layout_height="@dimen/dp_40"
+                android:layout_marginEnd="@dimen/dp_16"
+                android:layout_marginBottom="@dimen/dp_16"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toRightOf="parent" />
+
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/share_img"
+                android:layout_width="@dimen/dp_28"
+                android:layout_height="@dimen/dp_28"
+                android:layout_marginEnd="@dimen/dp_16"
+                android:layout_marginBottom="@dimen/dp_120"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:srcCompat="@drawable/video_share_icon" />
+
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/share_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_4"
+                android:text="321"
+                android:textColor="@color/textWhiteColor"
+                android:textSize="@dimen/sp_12"
+                app:layout_constraintLeft_toLeftOf="@id/share_img"
+                app:layout_constraintRight_toRightOf="@id/share_img"
+                app:layout_constraintTop_toBottomOf="@id/share_img" />
+
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/collect_img"
+                android:layout_width="@dimen/dp_28"
+                android:layout_height="@dimen/dp_28"
+                android:layout_marginBottom="@dimen/dp_40"
+                app:layout_constraintBottom_toTopOf="@id/share_img"
+                app:layout_constraintLeft_toLeftOf="@id/share_img"
+                app:layout_constraintRight_toRightOf="@id/share_img"
+                app:srcCompat="@drawable/video_collect_icon" />
+
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/collect_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_4"
+                android:text="321"
+                android:textColor="@color/textWhiteColor"
+                android:textSize="@dimen/sp_12"
+                app:layout_constraintLeft_toLeftOf="@id/collect_img"
+                app:layout_constraintRight_toRightOf="@id/collect_img"
+                app:layout_constraintTop_toBottomOf="@id/collect_img" />
+
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/comment_img"
+                android:layout_width="@dimen/dp_28"
+                android:layout_height="@dimen/dp_28"
+                android:layout_marginBottom="@dimen/dp_40"
+                app:layout_constraintBottom_toTopOf="@id/collect_img"
+                app:layout_constraintLeft_toLeftOf="@id/share_img"
+                app:layout_constraintRight_toRightOf="@id/share_img"
+                app:srcCompat="@drawable/video_comment_icon" />
+
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/comment_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_4"
+                android:text="321"
+                android:textColor="@color/textWhiteColor"
+                android:textSize="@dimen/sp_12"
+                app:layout_constraintLeft_toLeftOf="@id/comment_img"
+                app:layout_constraintRight_toRightOf="@id/comment_img"
+                app:layout_constraintTop_toBottomOf="@id/comment_img" />
+
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/like_img"
+                android:layout_width="@dimen/dp_28"
+                android:layout_height="@dimen/dp_28"
+                android:layout_marginBottom="@dimen/dp_40"
+                app:layout_constraintBottom_toTopOf="@id/comment_img"
+                app:layout_constraintLeft_toLeftOf="@id/share_img"
+                app:layout_constraintRight_toRightOf="@id/share_img"
+                app:srcCompat="@drawable/video_like_icon" />
+
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/like_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_4"
+                android:text="321"
+                android:textColor="@color/textWhiteColor"
+                android:textSize="@dimen/sp_12"
+                app:layout_constraintLeft_toLeftOf="@id/like_img"
+                app:layout_constraintRight_toRightOf="@id/like_img"
+                app:layout_constraintTop_toBottomOf="@id/like_img" />
+
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/avatar"
+                android:layout_width="@dimen/dp_48"
+                android:layout_height="@dimen/dp_48"
+                android:layout_marginBottom="@dimen/dp_20"
+                app:layout_constraintBottom_toTopOf="@id/like_img"
+                app:layout_constraintLeft_toLeftOf="@id/like_img"
+                app:layout_constraintRight_toRightOf="@id/like_img" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </FrameLayout>
+</layout>
