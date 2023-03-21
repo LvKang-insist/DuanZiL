@@ -129,7 +129,7 @@
             app:layout_constraintBottom_toTopOf="@id/comment_img"
             app:layout_constraintLeft_toLeftOf="@id/share_img"
             app:layout_constraintRight_toRightOf="@id/share_img"
-            app:srcCompat="@drawable/video_like_icon" />
+            app:srcCompat="@drawable/video_like_off_icon" />
 
 
         <androidx.appcompat.widget.AppCompatTextView

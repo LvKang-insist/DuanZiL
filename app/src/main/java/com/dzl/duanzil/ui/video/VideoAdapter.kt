@@ -1,10 +1,7 @@
 package com.dzl.duanzil.ui.video
 
 import android.annotation.SuppressLint
-import android.view.Gravity
 import android.view.View
-import android.widget.FrameLayout
-import android.widget.LinearLayout
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.core.content.res.ResourcesCompat
 import androidx.databinding.DataBindingUtil
@@ -52,6 +49,12 @@ class VideoAdapter :
                 context, item.user.avatar, avatar, 5,
                 ResourcesCompat.getColor(context.resources, R.color.white, null)
             )
+            commentText.text = item.info.commentNum.toString()
+            likeImg.setImageResource(if (item.info.isLike) R.drawable.video_like_on_icon else R.drawable.video_like_off_icon)
+            likeText.text = item.info.likeNum.toString()
+            shareText.text = item.info.shareNum.toString()
+            collectText.text = item.info.disLikeNum.toString()
+
         }
         holder.view.tag = holder
     }

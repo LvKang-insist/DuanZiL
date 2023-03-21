@@ -71,7 +71,7 @@ class JokesDetailActivity : BaseBindingActivity<ActivityJokesDetailBinding>() {
         //168510
         Timber.e("jokeId :${jokeBean.joke.jokesId}   ${MMkvEnum.TOKEN.getString()}")
         binding.recycler.adapter = adapter
-        viewModel.dispatch(JokesIntent.JokesId(168510))
+        viewModel.dispatch(JokesIntent.JokesId(jokeBean.joke.jokesId))
         viewModel.dispatch(JokesIntent.RefreshComment)
     }
 
