@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.util.DisplayMetrics
 import android.util.TypedValue
+import com.dzl.duanzil.app.AppApplication
 
 /**
  * 屏幕、尺寸相关工具类
@@ -60,23 +61,19 @@ object ScreenUtil {
         return pxVal / context.resources.displayMetrics.scaledDensity
     }
 
+
+
     /**
      * 获取屏幕的宽度(px)
-     *
-     * @param context Context
      */
-    fun getScreenWidth(context: Context): Int {
-        return context.resources.displayMetrics.widthPixels
-    }
+    val screenWidth: Int
+        get() = AppApplication.application.resources.displayMetrics.widthPixels
 
     /**
      * 获取屏幕的高度(px)
-     *
-     * @param context Context
      */
-    fun getScreenHeight(context: Context): Int {
-        return context.resources.displayMetrics.heightPixels
-    }
+    val screenHeight: Int
+        get() = AppApplication.application.resources.displayMetrics.heightPixels
 
     /**
      * 获取屏幕的屏幕密度

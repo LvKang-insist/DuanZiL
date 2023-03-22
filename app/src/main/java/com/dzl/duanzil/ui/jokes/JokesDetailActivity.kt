@@ -89,7 +89,7 @@ class JokesDetailActivity : BaseBindingActivity<ActivityJokesDetailBinding>() {
             val size = jokeBean.joke.videoSize.split(',')
             val w = size[0].toFloat()
             val h = size[1].toFloat()
-            val s = ScreenUtil.getScreenWidth(this) / w
+            val s = ScreenUtil.screenWidth / w
             videoH = (h * s).toInt()
         }
 

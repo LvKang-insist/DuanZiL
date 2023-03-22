@@ -1,5 +1,6 @@
 package com.dzl.duanzil.ui.video
 
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
@@ -8,12 +9,14 @@ import com.dzl.duanzil.R
 import com.dzl.duanzil.core.base.BaseBindingFragment
 import com.dzl.duanzil.databinding.FragVideoBinding
 import com.dzl.duanzil.extension.removeViewFormParent
+import com.dzl.duanzil.ui.dialog.CommentDialogFragment
 import com.dzl.duanzil.utils.AESUtils
 import com.dzl.duanzil.utils.cache.PreloadManager
 import com.dzl.duanzil.viewmodel.video.VideoIntent
 import com.dzl.duanzil.viewmodel.video.VideoViewModel
 import com.dzl.duanzil.widgets.controller.TikTokController
 import com.dzl.duanzil.widgets.render.TikTokRenderViewFactory
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import timber.log.Timber
 import xyz.doikki.videoplayer.player.VideoView
 
@@ -44,6 +47,7 @@ class VideoFragment : BaseBindingFragment<FragVideoBinding>() {
     val controller by lazy { TikTokController(requireContext()) }
     val videoView by lazy { VideoView(requireContext()) }
     val viewPagerImpl by lazy { binding.page.getChildAt(0) as RecyclerView }
+    val commentDialog by lazy { CommentDialogFragment() }
     var curPos: Int = 0
 
     override fun initView() {
@@ -145,6 +149,16 @@ class VideoFragment : BaseBindingFragment<FragVideoBinding>() {
                 }
             }
         })
+
+        adapter.addChildClickViewIds(R.id.comment_img)
+        adapter.setOnItemChildClickListener { _, view, position ->
+            when (view.id) {
+                R.id.comment_img -> {
+                    val bean = adapter.data[position]
+                    commentDialog.show(childFragmentManager, bean.info.commentNum.toString())
+                }
+            }
+        }
     }
 
 

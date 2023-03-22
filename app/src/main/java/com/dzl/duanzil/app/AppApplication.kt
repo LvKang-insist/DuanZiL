@@ -33,6 +33,7 @@ import xyz.doikki.videoplayer.player.VideoViewManager
 class AppApplication : Application() {
 
 
+
     override fun onCreate() {
         super.onCreate()
         initSdk(this)
