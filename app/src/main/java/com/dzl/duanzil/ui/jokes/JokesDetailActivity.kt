@@ -2,7 +2,10 @@ package com.dzl.duanzil.ui.jokes
 
 
 import android.annotation.SuppressLint
+import android.os.Handler
+import android.os.Looper
 import android.view.Gravity
+import android.view.WindowManager
 import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.activity.viewModels
@@ -30,6 +33,7 @@ import timber.log.Timber
 import xyz.doikki.videocontroller.StandardVideoController
 import xyz.doikki.videocontroller.component.*
 import xyz.doikki.videoplayer.player.VideoView
+import kotlin.concurrent.thread
 
 class JokesDetailActivity : BaseBindingActivity<ActivityJokesDetailBinding>() {
 
