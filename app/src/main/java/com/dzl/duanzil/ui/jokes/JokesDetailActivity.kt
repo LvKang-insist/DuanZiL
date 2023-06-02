@@ -2,6 +2,8 @@ package com.dzl.duanzil.ui.jokes
 
 
 import android.annotation.SuppressLint
+import android.app.ActivityManager
+import android.content.Context
 import android.os.Handler
 import android.os.Looper
 import android.view.Gravity
@@ -72,6 +74,10 @@ class JokesDetailActivity : BaseBindingActivity<ActivityJokesDetailBinding>() {
     override fun getLayoutId(): Int = R.layout.activity_jokes_detail
 
     override fun initView() {
+
+        val manager = getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
+        Timber.e("memoryClass：${manager.memoryClass}")
+        Timber.e("largeMemoryClass:${manager.largeMemoryClass}")
         //168510
         Timber.e("jokeId :${jokeBean.joke.jokesId}   ${MMkvEnum.TOKEN.getString()}")
         binding.recycler.adapter = adapter

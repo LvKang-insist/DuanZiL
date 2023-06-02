@@ -6,6 +6,7 @@ import android.widget.ImageView
 import androidx.annotation.DrawableRes
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.DecodeFormat
 import com.bumptech.glide.load.MultiTransformation
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.engine.GlideException
@@ -242,6 +243,17 @@ object GlideUtil : AppGlideModule() {
                 )
         GlideApp.with(context).load(url).apply(options).into(imageView)
     }
+
+    //加载 RGB_565 格式的图片
+    fun loadRGB565Image(context: Context, url: String?, imageView: ImageView) {
+        Glide.with(context)
+            .load(url)
+            .apply(RequestOptions().format(DecodeFormat.PREFER_RGB_565))
+            .into(imageView)
+    }
+
+
+
 
     //dp转px
     private fun dp2px(context: Context, dpValue: Float): Int {

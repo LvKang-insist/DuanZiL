@@ -1,12 +1,11 @@
 package com.dzl.duanzil.ui
 
+import android.app.ActivityManager
+import android.content.Context
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.viewpager2.adapter.FragmentStateAdapter
@@ -22,7 +21,6 @@ import com.dzl.duanzil.ui.msg.MsgFragment
 import com.dzl.duanzil.ui.user.UserFragment
 import com.dzl.duanzil.ui.video.VideoFragment
 import com.dzl.duanzil.utils.JumpUtils
-import com.hjq.toast.ToastUtils
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import timber.log.Timber

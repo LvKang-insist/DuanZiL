@@ -19,7 +19,7 @@ object JumpUtils {
 
 
     fun startLogin(context: Context) {
-        startActivity(context, LoginActivity::class.java)
+//        startActivity(context, LoginActivity::class.java)
     }
 
 
